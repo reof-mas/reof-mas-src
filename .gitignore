@@ -1,2 +1,6 @@
 *.swp
 
+py_env/bin
+py_env/include
+py_env/lib
+py_env/pyvenv.cfg
