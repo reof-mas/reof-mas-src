@@ -1,0 +1,7 @@
+#! /bin/bash
+
+cd py_env
+. bin/activate
+python demo
+deactivate
+cd ..
