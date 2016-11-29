@@ -1,0 +1,3 @@
+1) make agents receive MIDI and translate it into some kind of string
+2) make agents read the string and calculate state transitions between notes
+3) make agents also calculate state transitions for the rythm? how?
