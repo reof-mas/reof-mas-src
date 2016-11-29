@@ -1,0 +1,7 @@
+--INSPIRING SET--
+1) List of all works that music21 has: 
+http://web.mit.edu/music21/doc/about/referenceCorpus.html#referencecorpus
+However, this list is comprises the full work and not only the melody.
+2) Database where to find MIDI versions of just the melody:
+www.musipedia.org (it is tricky to find the place where to search for keywords,
+but it is at the top left part of the page)
