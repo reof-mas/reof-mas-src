@@ -6,3 +6,4 @@ py_env/include
 py_env/lib
 py_env/pyvenv.cfg
 py_env/scripts
+py_env/lib64
