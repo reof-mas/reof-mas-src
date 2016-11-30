@@ -9,3 +9,8 @@ littleMelody.show('lily')
 littleMelody.show('midi')
 littleMelody.write('midi', 'my_midi.mid')
 print("Hello, I am the demonstration Python script")
+
+#transpose the melody to C
+k=littleMelody.analyze("key")
+i=interval.Interval(k.tonic, pitch.Pitch("C"))
+sNew=s.transpose(i)
