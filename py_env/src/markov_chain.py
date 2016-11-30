@@ -1,7 +1,12 @@
 def get_markov_chain(filePath):
     import music21 as m
 
-    song = m.converter.parse(filePath)
+    s = m.converter.parse(filePath)
+
+    # transpose the melody to C
+    k = s.analyze("key")
+    i = m.interval.Interval(k.tonic, m.pitch.Pitch("C"))
+    song = s.transpose(i)
 
     # Get the notes using generator expression
     notes = [note for note in song[0] if type(note) is m.note.Note]
