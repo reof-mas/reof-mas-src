@@ -1,6 +1,6 @@
 *.swp
-*.mid
 .DS_Store
+py_env/*.mid
 py_env/bin
 py_env/include
 py_env/lib
