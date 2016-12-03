@@ -4,7 +4,7 @@ class ComposerAgent(CreativeAgent):
     '''
     Agent generates new melodies based on a markov chain.
     '''
-    def __init__(self, env, transition_probs):
+    def __init__(self, env, transition_probs, order=1):
         '''
 
         :param env:
@@ -14,6 +14,7 @@ class ComposerAgent(CreativeAgent):
         '''
         super().__init__(env)
         self.transition_probs = transition_probs
+        self.order = order
 
     def generate(self, max_len = 10):
         '''
@@ -31,7 +32,9 @@ class ComposerAgent(CreativeAgent):
         next_states = list(self.transition_probs[start].items())
 
         # melody is a list of the selected notes
-        melody = [start[0]]
+        melody = []
+        for note in start:
+            melody.append(note)
         curr_len = 1
 
         # Generate the melody
@@ -43,7 +46,7 @@ class ComposerAgent(CreativeAgent):
             for i in range(len(next_states)):
                 # State is chosen if rnd < cumulative sum of transition probabilities
                 if rnd <= sum + next_states[i][1]:
-                    melody.append(next_states[i][0][0])
+                    melody.append(next_states[i][0][self.order-1])
                     curr_len += 1
 
                     # If selected state doesn't have transitions, return melody
