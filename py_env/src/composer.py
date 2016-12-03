@@ -31,7 +31,7 @@ class ComposerAgent(CreativeAgent):
         next_states = list(self.transition_probs[start].items())
 
         # melody is a list of the selected notes
-        melody = [start]
+        melody = [start[0]]
         curr_len = 1
 
         # Generate the melody
@@ -43,7 +43,7 @@ class ComposerAgent(CreativeAgent):
             for i in range(len(next_states)):
                 # State is chosen if rnd < cumulative sum of transition probabilities
                 if rnd <= sum + next_states[i][1]:
-                    melody.append(next_states[i][0])
+                    melody.append(next_states[i][0][0])
                     curr_len += 1
 
                     # If selected state doesn't have transitions, return melody

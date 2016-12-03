@@ -1,4 +1,4 @@
-def get_markov_chain(filePath):
+def get_markov_chain(filePath, order = 1):
     import music21 as m
 
     s = m.converter.parse(filePath)
@@ -11,12 +11,14 @@ def get_markov_chain(filePath):
     # Get the notes using generator expression
     notes = [note for note in song[0] if type(note) is m.note.Note]
 
+    states = _get_states(notes, order)
+
     # Compute number of transitions
     transitions = {}
-    for i in range(len(notes) - 1):
+    for i in range(len(states) - 1):
         # A state is represented as a note and duration
-        pred = (notes[i].name, notes[i].duration.quarterLength)
-        succ = (notes[i + 1].name, notes[i + 1].duration.quarterLength)
+        pred = states[i]
+        succ = states[i+1]
 
         if pred not in transitions:
             transitions[pred] = {}
@@ -39,3 +41,26 @@ def get_markov_chain(filePath):
             probs[pred][succ] = count / totals[pred]
 
     return probs
+
+def _get_states(notes, order = 1):
+    import warnings
+
+    states = []
+    i = 0
+
+    if len(notes) < order:
+        warnings.warn('Markov chain order is larger than the amount of notes in melody')
+        return states
+
+    while i+order-1 < len(notes):
+        state = []
+        for j in range(order):
+            state.append((notes[i+j].name, notes[i+j].duration.quarterLength))
+        states.append(tuple(state))
+        i += 1
+
+    return states
+
+
+#chain = get_markov_chain('../../melodies/popular/duke_ellington/MPG9GXQU.mid', 1)
+#print(chain)

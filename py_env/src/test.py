@@ -3,8 +3,9 @@ import markov_chain
 from music_environment import MusicEnvironment
 from music21 import *
 
-env = MusicEnvironment.create(('localhost', 5555))
-composer = ComposerAgent(env, markov_chain.get_markov_chain('../../melodies/popular/duke_ellington/MPG9GXQU.mid'))
+env = MusicEnvironment.create(('localhost', 6668))
+probs = markov_chain.get_markov_chain('../../melodies/popular/duke_ellington/MPG9GXQU.mid', order=4)
+composer = ComposerAgent(env, probs)
 
 melody = composer.generate()
 
