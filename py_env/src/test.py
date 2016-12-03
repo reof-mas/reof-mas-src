@@ -3,13 +3,13 @@ import markov_chain
 from music_environment import MusicEnvironment
 from music21 import *
 
-env = MusicEnvironment.create(('localhost', 6668))
+env = MusicEnvironment.create(('localhost', 5555))
 probs = markov_chain.get_markov_chain('../../melodies/popular/duke_ellington/MPG9GXQU.mid', order=4)
 composer = ComposerAgent(env, probs)
 
 melody = composer.generate()
 
-score1 = converter.parse('../../melodies/popular/duke_ellington/MPG9GXQU.mid')
+#score1 = converter.parse('../../melodies/popular/duke_ellington/MPG9GXQU.mid')
 #score1.show('text')
 
 s1 = stream.Stream()

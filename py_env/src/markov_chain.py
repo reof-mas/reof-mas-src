@@ -1,4 +1,14 @@
-def get_markov_chain(filePath, order = 1):
+def get_markov_chain(filePath, order=1):
+    '''
+    Creates markov chain from midi file.
+
+    :param filePath:
+        Path of the midi file
+    :param order:
+        Order of the markov chain
+    :return:
+        Transition probabilities
+    '''
     import music21 as m
 
     s = m.converter.parse(filePath)
@@ -13,20 +23,7 @@ def get_markov_chain(filePath, order = 1):
 
     states = _get_states(notes, order)
 
-    # Compute number of transitions
-    transitions = {}
-    for i in range(len(states) - 1):
-        # A state is represented as a note and duration
-        pred = states[i]
-        succ = states[i+1]
-
-        if pred not in transitions:
-            transitions[pred] = {}
-
-        if succ not in transitions[pred]:
-            transitions[pred][succ] = 1.0
-        else:
-            transitions[pred][succ] += 1.0
+    transitions = _get_transition_counts(states)
 
     # Compute total number of successors for each state
     totals = {}
@@ -43,6 +40,16 @@ def get_markov_chain(filePath, order = 1):
     return probs
 
 def _get_states(notes, order = 1):
+    '''
+    Extracts states from notes.
+
+    :param notes:
+        The noves where the states are extracted
+    :param order:
+        Order of the markov chain
+    :return:
+        The states extracted from the notes
+    '''
     import warnings
 
     states = []
@@ -61,6 +68,27 @@ def _get_states(notes, order = 1):
 
     return states
 
+def _get_transition_counts(states):
+    '''
+    Computes transition counts of states
 
-#chain = get_markov_chain('../../melodies/popular/duke_ellington/MPG9GXQU.mid', 1)
-#print(chain)
+    :param states:
+        The states of the markov chain
+    :return:
+        Transition counts
+    '''
+    transitions = {}
+    for i in range(len(states) - 1):
+        # A state is represented as a note and duration
+        pred = states[i]
+        succ = states[i+1]
+
+        if pred not in transitions:
+            transitions[pred] = {}
+
+        if succ not in transitions[pred]:
+            transitions[pred][succ] = 1.0
+        else:
+            transitions[pred][succ] += 1.0
+
+    return transitions
