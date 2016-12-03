@@ -7,3 +7,6 @@ py_env/lib
 py_env/pyvenv.cfg
 py_env/scripts
 py_env/lib64
+py_env/share
+py_env/src/.idea
+py_env/src/__pycache__
