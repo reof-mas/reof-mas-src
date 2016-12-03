@@ -1,8 +1,8 @@
-def get_markov_chain(directoryPath, order=1):
+def get_markov_chain(directory_path, order=1):
     '''
     Creates markov chain from midi file.
 
-    :param filePath:
+    :param file_path:
         Path of the midi file
     :param order:
         Order of the markov chain
@@ -12,21 +12,21 @@ def get_markov_chain(directoryPath, order=1):
     import music21 as m
     import os
 
-    # Get midi files from directoryPath
-    files = os.listdir(directoryPath)
+    # Get midi files from directory_path
+    files = os.listdir(directory_path)
     midi_files = [file for file in files if os.path.splitext(file)[1] == '.mid']
 
     transitions = {}
 
-    # Calculate transition counts using all the files in directoryPath
+    # Calculate transition counts using all the files in directory_path
     for file in midi_files:
         # Create the full filepath of the midi file
-        filePath = directoryPath
-        if directoryPath[-1] !=  os.sep:
-            filePath += os.sep
-        filePath += file
+        file_path = directory_path
+        if directory_path[-1] !=  os.sep:
+            file_path += os.sep
+        file_path += file
 
-        s = m.converter.parse(filePath)
+        s = m.converter.parse(file_path)
 
         # transpose the melody to C
         k = s.analyze("key")

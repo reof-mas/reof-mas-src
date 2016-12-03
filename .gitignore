@@ -10,3 +10,6 @@ py_env/lib64
 py_env/share
 py_env/src/.idea
 py_env/src/__pycache__
+py_env/pip-selfcheck.json
+py_env/tcl
+py_env/.idea
