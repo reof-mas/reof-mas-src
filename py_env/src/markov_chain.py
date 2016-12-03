@@ -1,4 +1,4 @@
-def get_markov_chain(filePath, order=1):
+def get_markov_chain(directoryPath, order=1):
     '''
     Creates markov chain from midi file.
 
@@ -10,20 +10,35 @@ def get_markov_chain(filePath, order=1):
         Transition probabilities
     '''
     import music21 as m
+    import os
 
-    s = m.converter.parse(filePath)
+    # Get midi files from directoryPath
+    files = os.listdir(directoryPath)
+    midi_files = [file for file in files if os.path.splitext(file)[1] == '.mid']
 
-    # transpose the melody to C
-    k = s.analyze("key")
-    i = m.interval.Interval(k.tonic, m.pitch.Pitch("C"))
-    song = s.transpose(i)
+    transitions = {}
 
-    # Get the notes using generator expression
-    notes = [note for note in song[0] if type(note) is m.note.Note]
+    # Calculate transition counts using all the files in directoryPath
+    for file in midi_files:
+        # Create the full filepath of the midi file
+        filePath = directoryPath
+        if directoryPath[-1] !=  os.sep:
+            filePath += os.sep
+        filePath += file
 
-    states = _get_states(notes, order)
+        s = m.converter.parse(filePath)
 
-    transitions = _get_transition_counts(states)
+        # transpose the melody to C
+        k = s.analyze("key")
+        i = m.interval.Interval(k.tonic, m.pitch.Pitch("C"))
+        song = s.transpose(i)
+
+        # Get the notes using generator expression
+        notes = [note for note in song[0] if type(note) is m.note.Note]
+
+        states = _get_states(notes, order)
+
+        transitions = _add_transitions(states, transitions)
 
     # Compute total number of successors for each state
     totals = {}
@@ -68,16 +83,17 @@ def _get_states(notes, order = 1):
 
     return states
 
-def _get_transition_counts(states):
+def _add_transitions(states, transitions):
     '''
     Computes transition counts of states
 
     :param states:
         The states of the markov chain
+    :param transitions:
+        Adds state transitions from states to transitions
     :return:
         Transition counts
     '''
-    transitions = {}
     for i in range(len(states) - 1):
         # A state is represented as a note and duration
         pred = states[i]
