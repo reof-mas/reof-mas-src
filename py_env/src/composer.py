@@ -1,4 +1,5 @@
 from creamas import CreativeAgent, Artifact
+from math import factorial
 
 class ComposerAgent(CreativeAgent):
     '''
@@ -60,6 +61,70 @@ class ComposerAgent(CreativeAgent):
                     sum += next_states[i][1]
 
         return Artifact(self, melody)
+
+
+    def value(self, artifact):
+        """
+        Calculates the value of an artifact.
+        In this method, it is assumed that music notes follow the Zipf's Law, in which
+        the second most frequent pitch is 1/2 as frequent as the first, the third is
+        1/3 as frequent as the first, etc. In this function we compare the actual probabilities
+        with the expected probabilities and we return the mean of relative differences
+        between these two values.
+
+        Args:
+            artifact: an Artifact to be evaluated.
+
+        Returns:
+            a value between 0 and 1 indicating the value of the artifact.
+        """
+
+        artf=artifact.obj
+        #make a list of note frequencies
+
+        incidence_table={}
+        for tune in artf:
+            element=tune[0]
+            if element not in incidence_table:
+                incidence_table[element]=1
+            else:
+                incidence_table[element]+=1
+        sorted_incid_keys = sorted(incidence_table, key=incidence_table.get, reverse=True)
+        sorted_incid_values = []
+        for key in sorted_incid_keys:
+            sorted_incid_values.append(incidence_table[key])
+
+        total=sum(sorted_incid_values)
+        sorted_frequencies=[]
+        #here it is
+        for value in sorted_incid_values:
+            sorted_frequencies.append(value / total)
+
+        #list of expected frequencies
+        n = len(sorted_frequencies)
+        numerator = factorial(n)
+        denominator=0
+        for i in  range(1,n+1):
+           denominator += numerator/i
+
+        #code that retrieves expected probabilities/frequencies
+        most_frequent_tune_prob=numerator/denominator
+        expected_frequencies = []
+        for i in range(1, n+1):
+            expected_frequencies.append(most_frequent_tune_prob/i)
+        pseudo_fit_parts=[]
+
+        for i in range(len(sorted_frequencies)):
+            diff=abs(sorted_frequencies[i]-expected_frequencies[i])
+            ratio=1-(diff/expected_frequencies[i])
+            pseudo_fit_parts.append(ratio)
+
+        pseudo_fit = 0
+        for value in pseudo_fit_parts:
+            pseudo_fit += value
+        pseudo_fit = pseudo_fit/len(sorted_frequencies)
+
+        return pseudo_fit
 
 
 

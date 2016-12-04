@@ -5,10 +5,13 @@ from music21 import *
 
 env = MusicEnvironment.create(('localhost', 5555))
 order = 3
-probs = markov_chain.get_markov_chain('../../melodies/popular/duke_ellington', order=order)
+#probs = markov_chain.get_markov_chain('../../melodies/popular/duke_ellington', order=order)
+probs = markov_chain.get_markov_chain('../../melodies/classical/bach', order=order)
 composer = ComposerAgent(env, probs, order=order)
 
 melody = composer.generate()
+value = composer.value(melody)
+print(value)
 
 #score1 = converter.parse('../../melodies/popular/duke_ellington/MPG9GXQU.mid')
 #score1.show('text')
