@@ -4,7 +4,20 @@
    contain the root `toctree` directive.
 
 Welcome to REOF-MAS: CCMAS 2016 Project's documentation!
-========================================================
+********************************************************
+
+Terminology
+===========
+
+- **Note** A note is a basic building block of music. It has at least two attributes: a pitch (a frequency in Hz) and duration (see below).
+
+- **Duration** Duration of a note is the time interval it takes to play the note relatively to the actual rythm. For instance, a note may take an entire bar, half of it, a quarter, and so on.
+
+- **Pitch** Pitch is measured in Hz and defines how high or low it is perceived.
+
+- **Theme** The material, usually a recognizable melody, upon which part or all of a composition is based. A theme can be seen as the combination and transformation of one or several motifs. [1]
+
+- **Motif** A short succession of notes that is the smallest analyzable element or phrase within a theme. [2]
 
 Contents:
 
@@ -27,15 +40,11 @@ In order to download the program and run its demonstration, use the following co
         deactivate
 
 
-Here goes a list:
+References
+==========
 
-* Item A
-* Item B
-
-Another:
-
-1. Yeah
-2. Splendid
+- [1] https://en.wikipedia.org/wiki/Subject_(music) Retreived 1 Dec 2016, 14:53
+- [2] https://en.wikipedia.org/wiki/Motif_(music) Retreived 1 Dec 2016, 14:54
 
 
 
