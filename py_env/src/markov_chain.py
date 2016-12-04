@@ -1,5 +1,5 @@
 def get_markov_chain(directory_path, order=1):
-    '''
+    """
     Creates markov chain from midi file.
 
     :param file_path:
@@ -8,7 +8,7 @@ def get_markov_chain(directory_path, order=1):
         Order of the markov chain
     :return:
         Transition probabilities
-    '''
+    """
     import music21 as m
     import os
 
@@ -55,7 +55,7 @@ def get_markov_chain(directory_path, order=1):
     return probs
 
 def _get_states(notes, order = 1):
-    '''
+    """
     Extracts states from notes.
 
     :param notes:
@@ -64,7 +64,7 @@ def _get_states(notes, order = 1):
         Order of the markov chain
     :return:
         The states extracted from the notes
-    '''
+    """
     import warnings
 
     states = []
@@ -84,7 +84,7 @@ def _get_states(notes, order = 1):
     return states
 
 def _add_transitions(states, transitions):
-    '''
+    """
     Computes transition counts of states
 
     :param states:
@@ -93,7 +93,7 @@ def _add_transitions(states, transitions):
         Adds state transitions from states to transitions
     :return:
         Transition counts
-    '''
+    """
     for i in range(len(states) - 1):
         # A state is represented as a note and duration
         pred = states[i]

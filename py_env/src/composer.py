@@ -2,30 +2,29 @@ from creamas import CreativeAgent, Artifact
 from math import factorial
 
 class ComposerAgent(CreativeAgent):
-    '''
+    """
     Agent generates new melodies based on a markov chain.
-    '''
+    """
     def __init__(self, env, transition_probs, order=1):
-        '''
-
+        """
         :param env:
             subclass of :py:class:`~creamas.core.environment.Environment`
         :param transition_probs:
             markov chain containing transition probabilities
-        '''
+        """
         super().__init__(env)
         self.transition_probs = transition_probs
         self.order = order
 
     def generate(self, max_len = 10):
-        '''
+        """
         Generates a random sentence using markov chain probabilities.
 
         :param
             max_len: maximum length of the generated melody
         :return:
             Artifact containing generated sentence
-        '''
+        """
         import random
 
         # Choose start note randomly
