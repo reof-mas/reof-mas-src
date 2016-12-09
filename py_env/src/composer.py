@@ -1,5 +1,7 @@
 from creamas import CreativeAgent, Artifact
 from math import factorial
+from list_memory import ListMemory
+import utility
 import logging
 
 
@@ -17,6 +19,7 @@ class ComposerAgent(CreativeAgent):
         super().__init__(env, log_folder=log_folder)
         self.transition_probs = transition_probs
         self.order = order
+        self.mem = ListMemory(20)
 
     def generate(self, max_len = 10):
         """
@@ -128,14 +131,14 @@ class ComposerAgent(CreativeAgent):
         return pseudo_fit
 
     def invent(self, n):
-        '''
+        """
         Invents a new melody. Generates n melodies and selects the best.
         :param n:
             The number of melodies generated.
         :returns:
             A melody wrapped as :class:`~creamas.core.artifact.Artifact` and its
             evaluation.
-        '''
+        """
         best_artifact = self.generate()
         max_evaluation, framing = self.evaluate(best_artifact)
         for _ in range(n-1):
@@ -152,10 +155,44 @@ class ComposerAgent(CreativeAgent):
 
         # Add evaluation and framing to the artifact
         best_artifact.add_eval(self, max_evaluation, fr=framing)
+
+        # Memorize best_artifact
+        self.mem.memorize(best_artifact)
+
         return best_artifact
 
     def evaluate(self, artifact):
         return self.value(artifact), None
+
+    def novelty(self, artifact):
+        """
+        Calculates novelty of an artifact based on Levenshtein distance.
+
+        :param artifact:
+            Artifact containing melody.
+        :return:
+            Novelty of the artifact
+        """
+
+        # Return 1 if no artifacts in memory
+        if len(self.mem.artifacts) == 0:
+            return 1.0
+
+        novelty = 1.0
+        evaluation_melody = artifact.obj
+        matching_melody = self.mem.artifacts[0].obj
+        steps = utility.convert_melody_to_steps(evaluation_melody)
+
+        for memart in self.mem.artifacts:
+            melody = memart.obj
+            lev = utility.levenshtein(steps, utility.convert_melody_to_steps(melody))
+            mlen = max(len(evaluation_melody), float(len(melody)))
+            current_novelty = float(lev) / mlen
+            if current_novelty < novelty:
+                novelty = current_novelty
+                matching_melody = melody
+
+        return novelty, matching_melody
 
     async def act(self):
         artifact = self.invent(10)
