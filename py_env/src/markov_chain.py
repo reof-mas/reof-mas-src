@@ -1,5 +1,6 @@
 import warnings
-
+import music21 as m
+import os
 
 def get_markov_chain(directory_path, order=1):
     """
@@ -12,8 +13,7 @@ def get_markov_chain(directory_path, order=1):
     :return:
         Transition probabilities
     """
-    import music21 as m
-    import os
+
 
     # Get midi files from directory_path
     files = os.listdir(directory_path)

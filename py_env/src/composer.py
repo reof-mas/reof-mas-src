@@ -4,6 +4,7 @@ from list_memory import ListMemory
 import utility
 import logging
 
+import random
 
 class ComposerAgent(CreativeAgent):
     """
@@ -30,7 +31,6 @@ class ComposerAgent(CreativeAgent):
         :return:
             Artifact containing generated sentence
         """
-        import random
 
         # Choose start note randomly
         start = random.choice(list(self.transition_probs))

@@ -1,3 +1,5 @@
+import os, shutil
+
 def levenshtein(s, t):
     """Compute the edit distance between two strings.
     From Wikipedia article; Iterative with two matrix rows.
@@ -83,3 +85,14 @@ def count_s(I, S):
     return count
 
 
+def delete_outputs(folder):
+    """
+    Deletes the all contents in the folder, does not remove folder
+    """
+    for file in os.listdir(folder):
+        file_path = os.path.join(folder, file)
+        try:
+            if os.path.isfile(file_path):
+                os.unlink(file_path)
+        except Exception as e:
+            print(e)

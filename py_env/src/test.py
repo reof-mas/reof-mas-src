@@ -28,3 +28,4 @@ for state in melody.obj:
 s1.show('text')
 #environment.set('midiPath', '/usr/bin/timidity')
 s1.show('midi')
+s1.write('midi','outputs/test.mid')
