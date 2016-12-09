@@ -1,18 +1,19 @@
 from creamas import CreativeAgent, Artifact
 from math import factorial
 
+
 class ComposerAgent(CreativeAgent):
     """
     Agent generates new melodies based on a markov chain.
     """
-    def __init__(self, env, transition_probs, order=1):
+    def __init__(self, env, transition_probs, order=1, log_folder = 'logs'):
         """
         :param env:
             subclass of :py:class:`~creamas.core.environment.Environment`
         :param transition_probs:
             markov chain containing transition probabilities
         """
-        super().__init__(env)
+        super().__init__(env, log_folder=log_folder)
         self.transition_probs = transition_probs
         self.order = order
 
@@ -125,5 +126,14 @@ class ComposerAgent(CreativeAgent):
 
         return pseudo_fit
 
+    def invent(self):
+        return self.generate()
+
+    def evaluate(self, artifact):
+        return self.value(artifact), None
+
+    async def act(self):
+        artifact = self.invent()
+        self.env.add_candidate(artifact)
 
 

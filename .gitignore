@@ -13,3 +13,4 @@ py_env/src/__pycache__
 py_env/pip-selfcheck.json
 py_env/tcl
 py_env/.idea
+py_env/src/logs
