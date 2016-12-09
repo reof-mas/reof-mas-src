@@ -33,3 +33,53 @@ def convert_melody_to_steps(melody):
         steps.append(interval.notesToChromatic(note.Note(note1[0]), note.Note(note2[0])).intervalClass)
 
     return steps
+
+
+# Self similarity : an example usage
+# I = ['A','B','B','B','C','A','B']
+# I2 = ['A','B','C','B','A','C']
+# I3 = ['A','B','C','D','E']
+# I4 = ['A','B','C','D','E','F','G','T','N']
+# I5 = ['E','E','E','E','E']
+# self_similarity(I)
+def self_similarity(I):
+    """
+
+    :param I:
+    :return:
+    """
+    if len(I) < 2:
+        raise Exception("Sequence length cannot be less than 2")
+
+    S = get_intervals(I)
+    mu = get_mu(I,S)
+    RES = (2*mu)/len(I)
+    if RES < 1.0:
+        return RES
+    else:
+        return 1.0
+
+def get_mu(I,S):
+    c = 0
+    for s in S:
+        c = c + count_s(I,s)
+    return (1/len(S))*c
+
+
+
+def get_intervals(I):
+    S = []
+    for i in range(len(I)-1):
+        new_interval = [I[i], I[i+1]]
+        S.append(new_interval)
+    return S
+
+
+def count_s(I, S):
+    count = 0
+    for i in range(len(I)-1):
+        if S[0] == I[i] and S[1] == I[i+1]:
+            count+=1
+    return count
+
+

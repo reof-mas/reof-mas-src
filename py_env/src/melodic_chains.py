@@ -20,6 +20,8 @@ def main():
     sim.async_steps(2)
     sim.end()
 
+    # Test this
+    MusicEnvironment.shutdown(env)
 
 if __name__ == "__main__":
     main()
