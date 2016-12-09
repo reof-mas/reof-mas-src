@@ -47,19 +47,6 @@ def get_markov_chain(directory_path, order=1):
 
     return transitions
 
-    # Compute total number of successors for each state
-    totals = {}
-    for pred, succ_counts in transitions.items():
-        totals[pred] = sum(succ_counts.values())
-
-    # Compute the probability for each successor given the predecessor.
-    probs = {}
-    for pred, succ_counts in transitions.items():
-        probs[pred] = {}
-        for succ, count in succ_counts.items():
-            probs[pred][succ] = count / totals[pred]
-
-    return probs
 
 def get_transitions_probs_for_state(succ_counts):
     total = sum(succ_counts.values())

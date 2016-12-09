@@ -86,13 +86,15 @@ def count_s(melody, S):
         if S[0] == melody[i][0] and S[1] == melody[i + 1][0]:
             count += 1
     return count
-<<<<<<< HEAD
 
 
 def delete_outputs(folder):
     """
     Deletes the all contents in the folder, does not remove folder
     """
+    if not os.path.exists(folder):
+        os.makedirs(folder)
+
     for file in os.listdir(folder):
         file_path = os.path.join(folder, file)
         try:
@@ -100,5 +102,3 @@ def delete_outputs(folder):
                 os.unlink(file_path)
         except Exception as e:
             print(e)
-=======
->>>>>>> origin/master
