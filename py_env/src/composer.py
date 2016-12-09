@@ -3,6 +3,7 @@ from math import factorial
 from list_memory import ListMemory
 import utility
 import logging
+import markov_chain
 
 import random
 
@@ -10,7 +11,7 @@ class ComposerAgent(CreativeAgent):
     """
     Agent generates new melodies based on a markov chain.
     """
-    def __init__(self, env, transition_probs, order=1, log_folder = 'logs'):
+    def __init__(self, env, transition_counts, order=1, log_folder = 'logs'):
         """
         :param env:
             subclass of :py:class:`~creamas.core.environment.Environment`
@@ -18,9 +19,13 @@ class ComposerAgent(CreativeAgent):
             markov chain containing transition probabilities
         """
         super().__init__(env, log_folder=log_folder)
-        self.transition_probs = transition_probs
+        self.transition_counts = transition_counts
+        self.transition_probs = {}
         self.order = order
         self.mem = ListMemory(20)
+        # Calculate transition probabilities
+        for state, succ_counts in self.transition_counts.items():
+            self.transition_probs[state] = markov_chain.get_transitions_probs_for_state(succ_counts)
 
     def generate(self, max_len = 10):
         """

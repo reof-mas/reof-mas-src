@@ -29,7 +29,7 @@ def convert_melody_to_steps(melody):
     from music21 import interval, note
 
     steps = []
-    for i in range(len(melody)-1):
+    for i in range(len(melody) - 1):
         note1 = melody[i]
         note2 = melody[i + 1]
         steps.append(interval.notesToChromatic(note.Note(note1[0]), note.Note(note2[0])).intervalClass)
@@ -44,45 +44,49 @@ def convert_melody_to_steps(melody):
 # I4 = ['A','B','C','D','E','F','G','T','N']
 # I5 = ['E','E','E','E','E']
 # self_similarity(I)
-def self_similarity(I):
+def self_similarity(artifact):
     """
 
     :param I:
     :return:
     """
-    if len(I) < 2:
+
+    melody = artifact.obj
+
+    if len(melody) < 2:
         raise Exception("Sequence length cannot be less than 2")
 
-    S = get_intervals(I)
-    mu = get_mu(I,S)
-    RES = (2*mu)/len(I)
+    S = get_intervals(melody)
+    mu = get_mu(melody, S)
+    RES = (2 * mu) / len(melody)
     if RES < 1.0:
         return RES
     else:
         return 1.0
 
-def get_mu(I,S):
+
+def get_mu(melody, S):
     c = 0
     for s in S:
-        c = c + count_s(I,s)
-    return (1/len(S))*c
+        c = c + count_s(melody, s)
+    return (1 / len(S)) * c
 
 
-
-def get_intervals(I):
+def get_intervals(melody):
     S = []
-    for i in range(len(I)-1):
-        new_interval = [I[i], I[i+1]]
+    for i in range(len(melody) - 1):
+        new_interval = [melody[i][0], melody[i + 1][0]]
         S.append(new_interval)
     return S
 
 
-def count_s(I, S):
+def count_s(melody, S):
     count = 0
-    for i in range(len(I)-1):
-        if S[0] == I[i] and S[1] == I[i+1]:
-            count+=1
+    for i in range(len(melody) - 1):
+        if S[0] == melody[i][0] and S[1] == melody[i + 1][0]:
+            count += 1
     return count
+<<<<<<< HEAD
 
 
 def delete_outputs(folder):
@@ -96,3 +100,5 @@ def delete_outputs(folder):
                 os.unlink(file_path)
         except Exception as e:
             print(e)
+=======
+>>>>>>> origin/master
