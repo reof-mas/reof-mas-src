@@ -1,5 +1,6 @@
 from creamas import CreativeAgent, Artifact
 from math import factorial
+import logging
 
 
 class ComposerAgent(CreativeAgent):
@@ -126,14 +127,38 @@ class ComposerAgent(CreativeAgent):
 
         return pseudo_fit
 
-    def invent(self):
-        return self.generate()
+    def invent(self, n):
+        '''
+        Invents a new melody. Generates n melodies and selects the best.
+        :param n:
+            The number of melodies generated.
+        :returns:
+            A melody wrapped as :class:`~creamas.core.artifact.Artifact` and its
+            evaluation.
+        '''
+        best_artifact = self.generate()
+        max_evaluation, framing = self.evaluate(best_artifact)
+        for _ in range(n-1):
+            artifact = self.generate()
+            evaluation, fr = self.evaluate(artifact)
+            if evaluation > max_evaluation:
+                best_artifact = artifact
+                max_evaluation = evaluation
+                framing = fr
+
+        self.logger.log(logging.DEBUG, "{} invented word: {} (eval={}, framing={})"
+                     .format(self.name, best_artifact.obj, max_evaluation,
+                             framing))
+
+        # Add evaluation and framing to the artifact
+        best_artifact.add_eval(self, max_evaluation, fr=framing)
+        return best_artifact
 
     def evaluate(self, artifact):
         return self.value(artifact), None
 
     async def act(self):
-        artifact = self.invent()
+        artifact = self.invent(10)
         self.env.add_candidate(artifact)
 
 

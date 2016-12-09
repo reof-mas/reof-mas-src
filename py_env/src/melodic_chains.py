@@ -16,7 +16,7 @@ def main():
 
     # Audience agents also?
 
-    sim = Simulation(env, log_folder='logs', callback=env.vote)  # MusicEnvironment.vote is missing as of now.
+    sim = Simulation(env, log_folder='logs', callback=env.vote)
     sim.async_steps(2)
     sim.end()
 
