@@ -1,3 +1,6 @@
+import warnings
+
+
 def get_markov_chain(directory_path, order=1):
     """
     Creates markov chain from midi file.
@@ -36,9 +39,11 @@ def get_markov_chain(directory_path, order=1):
         # Get the notes using generator expression
         notes = [note for note in song[0] if type(note) is m.note.Note]
 
-        states = _get_states(notes, order)
-
-        transitions = _add_transitions(states, transitions)
+        if len(notes) == 0:
+            warnings.warn("Couldn't read notes in file: {}".format(file_path))
+        else:
+            states = _get_states(notes, order)
+            transitions = _add_transitions(states, transitions)
 
     # Compute total number of successors for each state
     totals = {}
@@ -65,8 +70,6 @@ def _get_states(notes, order = 1):
     :return:
         The states extracted from the notes
     """
-    import warnings
-
     states = []
     i = 0
 
