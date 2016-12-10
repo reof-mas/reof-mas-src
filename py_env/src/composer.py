@@ -228,6 +228,26 @@ class ComposerAgent(CreativeAgent):
 
         return novelty, matching_melody
 
+    def surprise(self, artifact):
+        """
+        Calculates the surprisigness of an artifact based on the pseudolikelihood of it being created using the agent's markov chain.
+
+        Args:
+            artifact: artifact to be evaluated
+        Returns:
+            Surprisigness of an artifact
+        """
+        likelihood = 1
+        states = markov_chain.get_states(artifact.obj, self.order)
+
+        for i in range(len(states)-1):
+            if states[i] not in self.transition_probs or states[i+1] not in self.transition_probs[states[i]]:
+                likelihood *= 0.1
+            else:
+                likelihood *= self.transition_probs[states[i]][states[i+1]]
+
+        return 1-likelihood
+
     async def act(self):
         # Add random domain artifacts to memory
         if len(self.env.artifacts) > 0:

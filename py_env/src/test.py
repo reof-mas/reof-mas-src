@@ -4,7 +4,7 @@ from music_environment import MusicEnvironment
 from music21 import *
 
 env = MusicEnvironment.create(('localhost', 5555))
-order = 3
+order = 2
 #probs = markov_chain.get_markov_chain('../../melodies/popular/duke_ellington', order=order)
 probs = markov_chain.get_markov_chain('../../melodies/classical/bach', order=order)
 composer = ComposerAgent(env, probs, order=order)

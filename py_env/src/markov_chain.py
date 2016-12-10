@@ -7,12 +7,11 @@ def get_markov_chain(directory_path, order=1):
     """
     Creates markov chain from midi file.
 
-    :param file_path:
-        Path of the midi file
-    :param order:
-        Order of the markov chain
-    :return:
-        Transition probabilities
+    Parameters:
+        directory_path: Path of the directory containing midi files
+        order: Order of the markov chain
+    Returns:
+        Transition counts
     """
 
 
@@ -55,6 +54,14 @@ def get_markov_chain(directory_path, order=1):
 
 
 def get_transitions_probs_for_state(succ_counts):
+    """
+    Calculates successor probabilities for a state.
+
+    Args:
+        succ_counts: dictionary where key is successor state and value is count
+    Returns:
+        successor probabilites for a state
+    """
     total = sum(succ_counts.values())
     succ_probs = {}
     for succ, count in succ_counts.items():
