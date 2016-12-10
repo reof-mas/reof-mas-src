@@ -13,10 +13,11 @@ class ComposerAgent(CreativeAgent):
     """
     def __init__(self, env, transition_counts, order=1, log_folder = 'logs'):
         """
-        :param env:
-            subclass of :py:class:`~creamas.core.environment.Environment`
-        :param transition_probs:
-            markov chain containing transition probabilities
+        Args:
+            env: subclass of :py:class:`~creamas.core.environment.Environment`
+            transition_counts: transition counts of a markov chain
+            order: the order of the markov chain
+            log_folder: folder for logs
         """
         super().__init__(env, log_folder=log_folder)
         self.transition_counts = transition_counts
@@ -41,10 +42,10 @@ class ComposerAgent(CreativeAgent):
         """
         Generates a random sentence using markov chain probabilities.
 
-        :param
+        Args:
             max_len: maximum length of the generated melody
-        :return:
-            Artifact containing generated sentence
+        Returns:
+            Artifact containing generated melody
         """
 
         # Choose start note randomly
@@ -148,9 +149,10 @@ class ComposerAgent(CreativeAgent):
     def invent(self, n):
         """
         Invents a new melody. Generates n melodies and selects the best.
-        :param n:
-            The number of melodies generated.
-        :returns:
+
+        Args:
+            n: The number of melodies generated.
+        Returns:
             A melody wrapped as :class:`~creamas.core.artifact.Artifact` and its
             evaluation.
         """
@@ -180,8 +182,10 @@ class ComposerAgent(CreativeAgent):
     def learn(self, artifact):
         """
         Adds the given artifact to state transition counts if not exists, increments
-         its value otherwise. Then, recalculates the state transition probabilities again
-        :param artifact: Artifact to be learnt
+        its value otherwise. Then, recalculates the state transition probabilities again
+
+        Args:
+            artifact: Artifact to be learnt
         """
         # Get text inside of the artifact object
         notes = markov_chain.get_states(artifact.obj, self.order)
@@ -203,9 +207,9 @@ class ComposerAgent(CreativeAgent):
         """
         Calculates novelty of an artifact based on Levenshtein distance.
 
-        :param artifact:
-            Artifact containing melody.
-        :return:
+        Args:
+            artifact: Artifact containing melody.
+        Returns:
             Novelty of the artifact
         """
 

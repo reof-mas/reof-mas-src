@@ -3,7 +3,8 @@ class ListMemory():
     """
     def __init__(self, capacity):
         """
-        :param int capacity: The maximum number of artifacts in the memory.
+        Args:
+            capacity: The maximum number of artifacts in the memory.
         """
         self._capacity = capacity
         self._artifacts = []
@@ -24,8 +25,8 @@ class ListMemory():
         """Memorize an artifact into the memory.
         If the artifact is already in the memory, does nothing. If memory
         is full and a new artifact is memorized, forgets the oldest artifact.
-        :param artifact: Artifact to be learned.
-        :type artifact: :class:`~creamas.core.artifact.Artifact`
+        Args:
+            artifact: Artifact to be learned.
         """
         if artifact in self._artifacts:
             return

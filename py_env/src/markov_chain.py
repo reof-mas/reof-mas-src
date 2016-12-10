@@ -74,11 +74,10 @@ def get_states(notes, order = 1):
     """
     Extracts states from notes.
 
-    :param notes:
-        The noves where the states are extracted
-    :param order:
-        Order of the markov chain
-    :return:
+    Args:
+        notes: The notes where the states are extracted
+        order:Order of the markov chain
+    Returns:
         The states extracted from the notes
     """
     states = []
@@ -102,11 +101,10 @@ def _add_transitions(states, transitions):
     """
     Computes transition counts of states
 
-    :param states:
-        The states of the markov chain
-    :param transitions:
-        Adds state transitions from states to transitions
-    :return:
+    Args:
+        states: The states of the markov chain
+        transitions: Adds state transitions from states to transitions
+    Returns:
         Transition counts
     """
     for i in range(len(states) - 1):
