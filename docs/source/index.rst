@@ -6,6 +6,10 @@
 Welcome to REOF-MAS: CCMAS 2016 Project's documentation!
 ********************************************************
 
+Project objective
+=================
+Our multi-agent system attempts to generate music with structure resembling that of compositions devised by human composers. (TODO: more content)
+
 Terminology
 ===========
 
@@ -24,8 +28,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-Sample text
-===========
 
 Running the demonstration
 =========================
@@ -38,6 +40,29 @@ In order to download the program and run its demonstration, use the following co
         cd ..
         ./run_all
         deactivate
+
+
+Generating artifacts
+====================
+
+We treat all possible notes as an alphabet, which allows us to use Markov chains for generating sequences of notes, a composition. Currently, we opted to using a second order Markov chain. The problem of the first order is that the artifacts may sound too random. On the other hand, if we were to choose an order at least three, our system will start plagiarize too much the compositions in the corpus used for constructing the Markov chains. (TODO: more content)
+
+Source code layout
+==================
+
+(All the files are in the directory ``py_env/src`` of our repository.)
+
+* ``composer.py`` - implements the actual agent responsible for generating artifacts, computing the value and novelty of each artifact, and finally reporting the best one to the environment.
+* ``list_memory.py`` - a FIFO (first in, first out) queue for holding at most ``c`` artifacts, where ``c`` is the maximum allowed capacity of the memory queue.
+* ``markov_chain.py`` - implements the actual Markov chain. The actual algorithm returns absolute transitions counts, yet the function ``get_transition_probs_for_state`` can convert those to actual transition probabilities. Also, we chose to reinforce the sequences generated from the Markov chain by adding those sequences to the Markov chain itself, thus reinforcing "good" compositions.
+* ``melodic_chains.py`` - contains the actual entry point to our CC software.
+* ``music_environment.py`` - subclasses the environment from Creamas providing the voting function required by Creamas.
+* ``utility.py`` - contains miscellaneous utility functions.
+
+Agent overview
+==============
+
+Add text
 
 
 References
