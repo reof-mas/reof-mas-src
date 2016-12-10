@@ -193,9 +193,10 @@ class ComposerAgent(CreativeAgent):
     def evaluate(self, artifact):
         value = self.value(artifact)
         novelty, novelty_framing = self.novelty(artifact)
+        surprise = self.surprise(artifact)
         # Change value framing if we can
         framing = {'value': artifact.obj, 'novelty': novelty_framing}
-        evaluation = (value + novelty) / 2
+        evaluation = (value + novelty + surprise) / 3
         return evaluation, framing
 
     def novelty(self, artifact):
