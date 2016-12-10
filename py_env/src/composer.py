@@ -184,7 +184,7 @@ class ComposerAgent(CreativeAgent):
         :param artifact: Artifact to be learnt
         """
         # Get text inside of the artifact object
-        notes = artifact.obj
+        notes = markov_chain.get_states(artifact.obj, self.order)
         #print("Incoming artefact {}".format(notes))
         self.transition_counts = markov_chain._add_transitions(notes, self.transition_counts)
         # Dont forget to update state transition probabilities
@@ -229,20 +229,17 @@ class ComposerAgent(CreativeAgent):
         return novelty, matching_melody
 
     async def act(self):
-        # Add random domain artifacts to memory, RETURN3
+        # Add random domain artifacts to memory
         if len(self.env.artifacts) > 0:
             domain_artifact = random.choice(self.env.artifacts)
             self.mem.memorize(domain_artifact)
-            # Add the artifact into the state transition counts, RETURN4
-
-            # TODO: transitions do not updated properly in learn function,
-            # fix it later
-            #self.learn(domain_artifact)
+            # Add the artifact into the state transition counts,
+            self.learn(domain_artifact)
 
 
         # Invent a new melody
         artifact = self.invent(self.N)
-        # Add the artifact itself to memory, RETURN3
+        # Add the artifact itself to memory
         self.mem.memorize(artifact)
 
         self.logger.log(logging.DEBUG, [a.obj for a in self.mem.artifacts])
