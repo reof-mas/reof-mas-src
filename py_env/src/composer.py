@@ -188,11 +188,13 @@ class ComposerAgent(CreativeAgent):
             artifact: Artifact to be learnt
         """
         # Get text inside of the artifact object
-        notes = markov_chain.get_states(artifact.obj, self.order)
+        states = markov_chain.get_states(artifact.obj, self.order)
         #print("Incoming artefact {}".format(notes))
-        self.transition_counts = markov_chain._add_transitions(notes, self.transition_counts)
+
+        self.transition_counts = markov_chain._add_transitions(states, self.transition_counts)
         # Dont forget to update state transition probabilities
-        self.update_stp()
+        for i in range(len(states)-1):
+            self.transition_probs[states[i]] = markov_chain.get_transitions_probs_for_state(self.transition_counts[states[i]])
 
     def evaluate(self, artifact):
         value = self.value(artifact)
