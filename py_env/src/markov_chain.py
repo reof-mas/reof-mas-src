@@ -104,8 +104,10 @@ def _add_transitions(states, transitions):
             transitions[pred] = {}
 
         if succ not in transitions[pred]:
+            #print("new state added : {} {}".format(pred,succ))
             transitions[pred][succ] = 1.0
         else:
+            #print("Increment state : {} {}".format(pred, succ))
             transitions[pred][succ] += 1.0
 
     return transitions

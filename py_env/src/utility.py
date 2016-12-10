@@ -1,4 +1,5 @@
 import os, shutil
+from music21 import interval, note
 
 def levenshtein(s, t):
     """Compute the edit distance between two strings.
@@ -26,7 +27,7 @@ def levenshtein(s, t):
 
 
 def convert_melody_to_steps(melody):
-    from music21 import interval, note
+
 
     steps = []
     for i in range(len(melody) - 1):
@@ -56,8 +57,8 @@ def self_similarity(artifact):
     if len(melody) < 2:
         raise Exception("Sequence length cannot be less than 2")
 
-    S = get_intervals(melody)
-    mu = get_mu(melody, S)
+    S = _get_intervals(melody)
+    mu = _get_mu(melody, S)
     RES = (2 * mu) / len(melody)
     if RES < 1.0:
         return RES
@@ -65,14 +66,14 @@ def self_similarity(artifact):
         return 1.0
 
 
-def get_mu(melody, S):
+def _get_mu(melody, S):
     c = 0
     for s in S:
-        c = c + count_s(melody, s)
+        c = c + _count_s(melody, s)
     return (1 / len(S)) * c
 
 
-def get_intervals(melody):
+def _get_intervals(melody):
     S = []
     for i in range(len(melody) - 1):
         new_interval = [melody[i][0], melody[i + 1][0]]
@@ -80,7 +81,7 @@ def get_intervals(melody):
     return S
 
 
-def count_s(melody, S):
+def _count_s(melody, S):
     count = 0
     for i in range(len(melody) - 1):
         if S[0] == melody[i][0] and S[1] == melody[i + 1][0]:

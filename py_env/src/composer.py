@@ -4,8 +4,8 @@ from list_memory import ListMemory
 import utility
 import logging
 import markov_chain
-
 import random
+
 
 class ComposerAgent(CreativeAgent):
     """
@@ -23,8 +23,18 @@ class ComposerAgent(CreativeAgent):
         self.transition_probs = {}
         self.order = order
         self.mem = ListMemory(20)
+        self.N = 10 # invent length
+
         # Calculate transition probabilities
+        self.update_stp()
+
+    def update_stp(self):
+        """
+        Converts state transition counts to probabilities
+        :return:
+        """
         for state, succ_counts in self.transition_counts.items():
+            #print("state: {}, succ_counts: {}".format(state, succ_counts))
             self.transition_probs[state] = markov_chain.get_transitions_probs_for_state(succ_counts)
 
     def generate(self, max_len = 10):
@@ -90,7 +100,7 @@ class ComposerAgent(CreativeAgent):
 
         artf=artifact.obj
         #make a list of note frequencies
-
+        #print("Value artefact obj : {}".format(artf))
         incidence_table={}
         for tune in artf:
             element=tune[0]
@@ -166,8 +176,27 @@ class ComposerAgent(CreativeAgent):
 
         return best_artifact
 
+
+    def learn(self, artifact):
+        """
+        Adds the given artifact to state transition counts if not exists, increments
+         its value otherwise. Then, recalculates the state transition probabilities again
+        :param artifact: Artifact to be learnt
+        """
+        # Get text inside of the artifact object
+        notes = artifact.obj
+        #print("Incoming artefact {}".format(notes))
+        self.transition_counts = markov_chain._add_transitions(notes, self.transition_counts)
+        # Dont forget to update state transition probabilities
+        self.update_stp()
+
     def evaluate(self, artifact):
-        return self.value(artifact), None
+        value = self.value(artifact)
+        novelty, novelty_framing = self.novelty(artifact)
+        # Change value framing if we can
+        framing = {'value': artifact.obj, 'novelty': novelty_framing}
+        evaluation = (value + novelty) / 2
+        return evaluation, framing
 
     def novelty(self, artifact):
         """
@@ -181,7 +210,7 @@ class ComposerAgent(CreativeAgent):
 
         # Return 1 if no artifacts in memory
         if len(self.mem.artifacts) == 0:
-            return 1.0
+            return 1.0, None
 
         novelty = 1.0
         evaluation_melody = artifact.obj
@@ -200,7 +229,23 @@ class ComposerAgent(CreativeAgent):
         return novelty, matching_melody
 
     async def act(self):
-        artifact = self.invent(10)
+        # Add random domain artifacts to memory, RETURN3
+        if len(self.env.artifacts) > 0:
+            domain_artifact = random.choice(self.env.artifacts)
+            self.mem.memorize(domain_artifact)
+            # Add the artifact into the state transition counts, RETURN4
+
+            # TODO: transitions do not updated properly in learn function,
+            # fix it later
+            #self.learn(domain_artifact)
+
+
+        # Invent a new melody
+        artifact = self.invent(self.N)
+        # Add the artifact itself to memory, RETURN3
+        self.mem.memorize(artifact)
+
+        self.logger.log(logging.DEBUG, [a.obj for a in self.mem.artifacts])
         self.env.add_candidate(artifact)
 
 
