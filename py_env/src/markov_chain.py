@@ -2,6 +2,7 @@ import warnings
 import music21 as m
 import os
 
+
 def get_markov_chain(directory_path, order=1):
     """
     Creates markov chain from midi file.
@@ -37,12 +38,17 @@ def get_markov_chain(directory_path, order=1):
         song = s.transpose(i)
 
         # Get the notes using generator expression
-        notes = [note for note in song[0] if type(note) is m.note.Note]
+        music21_notes = [note for note in song[0] if type(note) is m.note.Note]
 
-        if len(notes) == 0:
+        if len(music21_notes) == 0:
             warnings.warn("Couldn't read notes in file: {}".format(file_path))
         else:
-            states = _get_states(notes, order)
+            # Change notes to our format (note, duration)
+            notes = []
+            for note in music21_notes:
+                notes.append((note.name, note.duration.quarterLength))
+
+            states = get_states(notes, order)
             transitions = _add_transitions(states, transitions)
 
     return transitions
@@ -57,7 +63,7 @@ def get_transitions_probs_for_state(succ_counts):
     return succ_probs
 
 
-def _get_states(notes, order = 1):
+def get_states(notes, order = 1):
     """
     Extracts states from notes.
 
@@ -78,11 +84,12 @@ def _get_states(notes, order = 1):
     while i+order-1 < len(notes):
         state = []
         for j in range(order):
-            state.append((notes[i+j].name, notes[i+j].duration.quarterLength))
+            state.append(notes[i+j])
         states.append(tuple(state))
         i += 1
 
     return states
+
 
 def _add_transitions(states, transitions):
     """

@@ -8,7 +8,7 @@ def main():
     # Delete all the contents, midi files, in the outputs folder
     delete_outputs('outputs')
 
-    selected_order = 1
+    selected_order = 2
     directory_path = "../../melodies/classical/bach"
     transition_counts = markov_chain.get_markov_chain(directory_path, order=selected_order)
 
