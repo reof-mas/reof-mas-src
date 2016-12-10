@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>REOF-MAS: CCMAS 2016 Project 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="top" title="None" href="index.html#document-index" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="welcome-to-reof-mas-ccmas-2016-project-s-documentation">
+<h1>Welcome to REOF-MAS: CCMAS 2016 Project&#8217;s documentation!<a class="headerlink" href="#welcome-to-reof-mas-ccmas-2016-project-s-documentation" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="project-objective">
+<h2>Project objective<a class="headerlink" href="#project-objective" title="Permalink to this headline">¶</a></h2>
+<p>Our multi-agent system attempts to generate music with structure resembling that of compositions devised by human composers. (TODO: more content)</p>
+</div>
+<div class="section" id="terminology">
+<h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><strong>Note</strong> A note is a basic building block of music. It has at least two attributes: a pitch (a frequency in Hz) and duration (see below).</li>
+<li><strong>Duration</strong> Duration of a note is the time interval it takes to play the note relatively to the actual rythm. For instance, a note may take an entire bar, half of it, a quarter, and so on.</li>
+<li><strong>Pitch</strong> Pitch is measured in Hz and defines how high or low it is perceived.</li>
+<li><strong>Theme</strong> The material, usually a recognizable melody, upon which part or all of a composition is based. A theme can be seen as the combination and transformation of one or several motifs. [1]</li>
+<li><strong>Motif</strong> A short succession of notes that is the smallest analyzable element or phrase within a theme. [2]</li>
+</ul>
+<p>Contents:</p>
+<div class="toctree-wrapper compound">
+</div>
+</div>
+<div class="section" id="running-the-demonstration">
+<h2>Running the demonstration<a class="headerlink" href="#running-the-demonstration" title="Permalink to this headline">¶</a></h2>
+<p>In order to download the program and run its demonstration, use the following commands:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">reof</span><span class="o">-</span><span class="n">mas</span><span class="o">/</span><span class="n">reof</span><span class="o">-</span><span class="n">mas</span><span class="o">-</span><span class="n">src</span><span class="o">.</span><span class="n">git</span>
+<span class="n">cd</span> <span class="n">reof</span><span class="o">-</span><span class="n">mas</span><span class="o">-</span><span class="n">src</span><span class="o">/</span>
+<span class="n">pyvenv</span><span class="o">-</span><span class="mf">3.5</span> <span class="n">py_env</span>
+<span class="o">.</span> <span class="n">py_env</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">activate</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">cd</span> <span class="n">py_env</span><span class="o">/</span><span class="n">src</span>
+<span class="n">python</span> <span class="n">melodic_chains</span><span class="o">.</span><span class="n">py</span>
+<span class="n">deactivate</span>
+<span class="n">cd</span> <span class="n">outputs</span>
+<span class="nb">open</span> <span class="o">*</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generating-artifacts">
+<h2>Generating artifacts<a class="headerlink" href="#generating-artifacts" title="Permalink to this headline">¶</a></h2>
+<p>We treat all possible notes as an alphabet, which allows us to use Markov chains for generating sequences of notes, a composition. Currently, we opted to using a second order Markov chain. The problem of the first order is that the artifacts may sound too random. On the other hand, if we were to choose an order at least three, our system will start plagiarize too much the compositions in the corpus used for constructing the Markov chains. (TODO: more content)</p>
+</div>
+<div class="section" id="source-code-layout">
+<h2>Source code layout<a class="headerlink" href="#source-code-layout" title="Permalink to this headline">¶</a></h2>
+<p>(All the files are in the directory <code class="docutils literal"><span class="pre">py_env/src</span></code> of our repository.)</p>
+<ul class="simple">
+<li><code class="docutils literal"><span class="pre">composer.py</span></code> - implements the actual agent responsible for generating artifacts, computing the value and novelty of each artifact, and finally reporting the best one to the environment.</li>
+<li><code class="docutils literal"><span class="pre">list_memory.py</span></code> - a FIFO (first in, first out) queue for holding at most <code class="docutils literal"><span class="pre">c</span></code> artifacts, where <code class="docutils literal"><span class="pre">c</span></code> is the maximum allowed capacity of the memory queue.</li>
+<li><code class="docutils literal"><span class="pre">markov_chain.py</span></code> - implements the actual Markov chain. The actual algorithm returns absolute transitions counts, yet the function <code class="docutils literal"><span class="pre">get_transition_probs_for_state</span></code> can convert those to actual transition probabilities. Also, we chose to reinforce the sequences generated from the Markov chain by adding those sequences to the Markov chain itself, thus reinforcing &#8220;good&#8221; compositions.</li>
+<li><code class="docutils literal"><span class="pre">melodic_chains.py</span></code> - contains the actual entry point to our CC software.</li>
+<li><code class="docutils literal"><span class="pre">music_environment.py</span></code> - subclasses the environment from Creamas providing the voting function required by Creamas.</li>
+<li><code class="docutils literal"><span class="pre">utility.py</span></code> - contains miscellaneous utility functions.</li>
+</ul>
+</div>
+<div class="section" id="agent-overview">
+<h2>Agent overview<a class="headerlink" href="#agent-overview" title="Permalink to this headline">¶</a></h2>
+<p>Add text</p>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>[1] <a class="reference external" href="https://en.wikipedia.org/wiki/Subject_(music">https://en.wikipedia.org/wiki/Subject_(music</a>) Retreived 1 Dec 2016, 14:53</li>
+<li>[2] <a class="reference external" href="https://en.wikipedia.org/wiki/Motif_(music">https://en.wikipedia.org/wiki/Motif_(music</a>) Retreived 1 Dec 2016, 14:54</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html#document-index">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Ege Can Özer, Filipe Chichorro, Otto Hantula, Rodion Efremov.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.4.9</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

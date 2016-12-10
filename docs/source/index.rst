@@ -35,11 +35,16 @@ Running the demonstration
 In order to download the program and run its demonstration, use the following commands:
 ::
         git clone git@github.com:reof-mas/reof-mas-src.git
-        cd reof-mas-src/py_env/
-        . bin/activate
-        cd ..
-        ./run_all
+        cd reof-mas-src/
+        pyvenv-3.5 py_env
+        . py_env/bin/activate
+        pip3 install -r requirements.txt
+        cd py_env/src
+        python melodic_chains.py
         deactivate
+        cd outputs
+        open *
+
 
 
 Generating artifacts
