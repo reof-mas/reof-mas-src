@@ -93,6 +93,14 @@
 <li><code class="docutils literal"><span class="pre">utility.py</span></code> - contains miscellaneous utility functions.</li>
 </ul>
 </div>
+<div class="section" id="artefact-value-evaluation">
+<h2>Artefact value evaluation<a class="headerlink" href="#artefact-value-evaluation" title="Permalink to this headline">¶</a></h2>
+<p>The Zipf&#8217;s law states that in natural text, the second most frequent word appears 1/2 times as often as the most frequent word, the third most frequent word appears 1/3 times as often as the most frequent one, and so on. Whenever evaluating an artefact, we measure how well it obeys the law, and return a value denoting that value.</p>
+</div>
+<div class="section" id="artefact-novelty-evaluation">
+<h2>Artefact novelty evaluation<a class="headerlink" href="#artefact-novelty-evaluation" title="Permalink to this headline">¶</a></h2>
+<p>In order to determine the novelty of an artefact <code class="docutils literal"><span class="pre">A</span></code>, we compare the Levenshtein distance between <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code> for every artefact <code class="docutils literal"><span class="pre">B</span></code> in the agents memory, and choose the minimum distance over all <code class="docutils literal"><span class="pre">B</span></code> as the novelty.</p>
+</div>
 <div class="section" id="agent-overview">
 <h2>Agent overview<a class="headerlink" href="#agent-overview" title="Permalink to this headline">¶</a></h2>
 <p>Add text</p>
