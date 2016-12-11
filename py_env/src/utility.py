@@ -114,6 +114,14 @@ def sequence_to_stream(sequence):
         s.append(n)
     return s
 
+def sequence_to_part(sequence):
+    p = stream.Part()
+    for i in range(len(sequence)):
+        n = note.Note(sequence[i][0])
+        n.quarterLength = sequence[i][1]
+        p.append(n)
+    return p
+
 def get_instruments():
     """
     Returns the instrument list from a csv file

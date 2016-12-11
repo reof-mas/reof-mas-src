@@ -4,8 +4,7 @@ from composer import ComposerAgent
 from creamas import Simulation
 from utility import *
 from music21 import *
-import random
-
+import copy
 
 def main():
     # Delete all the contents, midi files, in the outputs folder
@@ -30,7 +29,8 @@ def main():
     MusicEnvironment.shutdown(env)
 
     # Concatenate the melodies
-    concat_melodies(env.artifacts, instrument_list)
+    #concat_melodies(env.artifacts, instrument_list)
+    create_song(env.artifacts)
 
 
 # TODO: change the argument types
@@ -46,6 +46,39 @@ def concat_melodies(a, instrument_list):
 
     s.write('midi', 'outputs/song.mid')
 
+def create_song(domain_artifacts):
+    # Choose the artifacts with lowest and highest complexities for different tracks in the song
+    highest_complexity = 0
+    lowest_complexity = 1
+    most_complex = domain_artifacts[0]
+    least_complex = domain_artifacts[0]
+
+    for artifact in domain_artifacts:
+        similarity = self_similarity(artifact)
+        if similarity > highest_complexity:
+            highest_complexity = similarity
+            most_complex = artifact
+        if similarity < lowest_complexity:
+            lowest_complexity = similarity
+            least_complex = artifact
+
+    part1 = sequence_to_part(least_complex.obj)
+    part2 = sequence_to_part(most_complex.obj)
+
+    # Duplicate part1 a couple of times
+    for i in range(2):
+        for note in part1:
+            part1.append(copy.copy(note))
+
+    # Make part2 as long as part1
+    part2_len = len(part2)
+    while part2.duration.components[0][2] < part1.duration.components[0][2]:
+        for i in range(part2_len):
+            part2.append(copy.copy(part2[i]))
+
+    # Write the song to file
+    song = stream.Stream([part1, part2])
+    song.write('midi', 'outputs/the_song.midi')
 
 if __name__ == "__main__":
     main()
