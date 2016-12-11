@@ -1,0 +1,204 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>utility module &#8212; REOF-MAS: CCMAS 2016 Project 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-utility">
+<span id="utility-module"></span><h1>utility module<a class="headerlink" href="#module-utility" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="utility.change_instrument">
+<code class="descclassname">utility.</code><code class="descname">change_instrument</code><span class="sig-paren">(</span><em>stream</em>, <em>number</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.change_instrument" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes instrument of the given stream.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>stream</strong> &#8211; music21 Stream object</li>
+<li><strong>number</strong> &#8211; Instrument number see the midi-instrument.csv for more detail</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.convert_melody_to_steps">
+<code class="descclassname">utility.</code><code class="descname">convert_melody_to_steps</code><span class="sig-paren">(</span><em>melody</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.convert_melody_to_steps" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="utility.delete_outputs">
+<code class="descclassname">utility.</code><code class="descname">delete_outputs</code><span class="sig-paren">(</span><em>folder</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.delete_outputs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes the all contents in the folder, does not remove folder</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.get_instruments">
+<code class="descclassname">utility.</code><code class="descname">get_instruments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utility.get_instruments" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the instrument list from a csv file
+:return: instrument list</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.instrument_family">
+<code class="descclassname">utility.</code><code class="descname">instrument_family</code><span class="sig-paren">(</span><em>instrument_list</em>, <em>family_name='sound_effects'</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.instrument_family" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns instrument number by family name
+:param family_name: Family name of the instrument</p>
+<blockquote>
+<div>List of families in the file
+piano, chromatic_percussion, organ,
+guitar, bass, strings, ensemble,
+brass, reed, pipe, synth_lead, synth_pad,
+synth_effects, ethnic, percussive, sound_effects</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Returns random instrument number by family names</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.levenshtein">
+<code class="descclassname">utility.</code><code class="descname">levenshtein</code><span class="sig-paren">(</span><em>s</em>, <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.levenshtein" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the edit distance between two strings.
+From Wikipedia article; Iterative with two matrix rows.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.self_similarity">
+<code class="descclassname">utility.</code><code class="descname">self_similarity</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.self_similarity" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>I</strong> &#8211; </td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.sequence_to_part">
+<code class="descclassname">utility.</code><code class="descname">sequence_to_part</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.sequence_to_part" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="utility.sequence_to_stream">
+<code class="descclassname">utility.</code><code class="descname">sequence_to_stream</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.sequence_to_stream" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="utility.zipfs_law">
+<code class="descclassname">utility.</code><code class="descname">zipfs_law</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.zipfs_law" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the value of an artifact using Zipf&#8217;s law.
+In this method, it is assumed that music notes follow the Zipf&#8217;s Law, in which
+the second most frequent pitch is 1/2 as frequent as the first, the third is
+1/3 as frequent as the first, etc. In this function we compare the actual probabilities
+with the expected probabilities and we return the mean of relative differences
+between these two values.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>artifact: an Artifact to be evaluated.</dd>
+<dt>Returns:</dt>
+<dd>a value between 0 and 1 indicating the value of the artifact.</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/utility.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Ege Can Özer, Filipe Chichorro, Otto Hantula, Rodion Efremov.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/utility.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

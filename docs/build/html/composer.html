@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>composer module &#8212; REOF-MAS: CCMAS 2016 Project 1.0 documentation</title>
+    
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '1.0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body role="document">
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="module-composer">
+<span id="composer-module"></span><h1>composer module<a class="headerlink" href="#module-composer" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="composer.ComposerAgent">
+<em class="property">class </em><code class="descclassname">composer.</code><code class="descname">ComposerAgent</code><span class="sig-paren">(</span><em>env</em>, <em>transition_counts</em>, <em>audience_addr</em>, <em>order=1</em>, <em>log_folder='logs'</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">creamas.core.agent.CreativeAgent</span></code></p>
+<p>Agent generates new melodies based on a markov chain.</p>
+<dl class="method">
+<dt id="composer.ComposerAgent.act">
+<code class="descname">act</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.act" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="composer.ComposerAgent.evaluate">
+<code class="descname">evaluate</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.evaluate" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="composer.ComposerAgent.generate">
+<code class="descname">generate</code><span class="sig-paren">(</span><em>max_len=10</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.generate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates a random sentence using markov chain probabilities.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>max_len: maximum length of the generated melody</dd>
+<dt>Returns:</dt>
+<dd>Artifact containing generated melody</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="composer.ComposerAgent.invent">
+<code class="descname">invent</code><span class="sig-paren">(</span><em>n</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.invent" title="Permalink to this definition">¶</a></dt>
+<dd><p>Invents a new melody. Generates n melodies and selects the best.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>n: The number of melodies generated.</dd>
+<dt>Returns:</dt>
+<dd>A melody wrapped as <code class="xref py py-class docutils literal"><span class="pre">Artifact</span></code> and its
+evaluation.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="composer.ComposerAgent.learn">
+<code class="descname">learn</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.learn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds the given artifact to state transition counts if not exists, increments
+its value otherwise. Then, recalculates the state transition probabilities again</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>artifact: Artifact to be learnt</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="composer.ComposerAgent.novelty">
+<code class="descname">novelty</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.novelty" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates novelty of an artifact based on Levenshtein distance.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>artifact: Artifact containing melody.</dd>
+<dt>Returns:</dt>
+<dd>Novelty of the artifact</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="composer.ComposerAgent.surprise">
+<code class="descname">surprise</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.surprise" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the surprisigness of an artifact based on the pseudolikelihood of it being created using the agent&#8217;s markov chain.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>artifact: artifact to be evaluated</dd>
+<dt>Returns:</dt>
+<dd>Surprisigness of an artifact</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="composer.ComposerAgent.update_stp">
+<code class="descname">update_stp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.update_stp" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts state transition counts to probabilities
+:return:</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="composer.ComposerAgent.value">
+<code class="descname">value</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.value" title="Permalink to this definition">¶</a></dt>
+<dd><p>Computes value of an artifact. Currently only uses Zipf&#8217;s law.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>artifact: artifact to be evaluated</dd>
+<dt>Returns:</dt>
+<dd>Value of the artifact</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  </ul></li>
+</ul>
+</div>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/composer.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2016, Ege Can Özer, Filipe Chichorro, Otto Hantula, Rodion Efremov.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.5</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.9</a>
+      
+      |
+      <a href="_sources/composer.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
