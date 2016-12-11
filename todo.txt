@@ -1,3 +1,25 @@
-1) make agents receive MIDI and translate it into some kind of string
-2) make agents read the string and calculate state transitions between notes
-3) make agents also calculate state transitions for the rythm? how?
+11.12.2016
+
+TODO LIST:
+
+-	Initialize agents with different sources, create init_agents function with different inspiring sets
+
+-	Find a way to insert Silent/Rest note
+
+-	Expand audience agent functionality
+
+-	(HARD ONE) Try to fit artefacts into some pattern:
+	
+	artefacts: a1, a2, a3 .. aN, 	- : silent note
+
+	sequence:   	- - - - - -
+			- - - - - -
+
+	output:	 instrument1:	a1 - a2 a3 a1 -
+  		 instrument2:	a4 a3 a4 a3 a3 -	-> Song
+
+
+-	Find some interesting results and save them
+
+
+-	Make a presentation, use the old one as template
