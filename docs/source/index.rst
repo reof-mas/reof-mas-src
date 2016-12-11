@@ -64,6 +64,18 @@ Source code layout
 * ``music_environment.py`` - subclasses the environment from Creamas providing the voting function required by Creamas.
 * ``utility.py`` - contains miscellaneous utility functions.
 
+
+Artefact value evaluation
+=========================
+
+The Zipf's law states that in natural text, the second most frequent word appears 1/2 times as often as the most frequent word, the third most frequent word appears 1/3 times as often as the most frequent one, and so on. Whenever evaluating an artefact, we measure how well it obeys the law, and return a value denoting that value.
+
+Artefact novelty evaluation
+===========================
+
+In order to determine the novelty of an artefact ``A``, we compare the Levenshtein distance between ``A`` and ``B`` for every artefact ``B`` in the agents memory, and choose the minimum distance over all ``B`` as the novelty.
+
+
 Agent overview
 ==============
 
