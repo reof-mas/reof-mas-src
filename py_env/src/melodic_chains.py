@@ -17,13 +17,13 @@ def main():
 
     env = MusicEnvironment.create(('localhost', 5555))
     env.log_folder = 'logs'
-    for i in range(10):
+    for i in range(5):
         agent = ComposerAgent(env, transition_counts)
 
     # Audience agents also?
 
     sim = Simulation(env, log_folder='logs', callback=env.vote)
-    sim.async_steps(10)
+    sim.async_steps(5)
     sim.end()
     # Test this
     MusicEnvironment.shutdown(env)
@@ -65,6 +65,10 @@ def create_song(domain_artifacts):
     part1 = sequence_to_part(least_complex.obj)
     part2 = sequence_to_part(most_complex.obj)
 
+    # Change octave of the simpler part
+    for note in part1:
+        note.octave = 3
+
     # Duplicate part1 a couple of times
     for i in range(2):
         for note in part1:
@@ -77,6 +81,8 @@ def create_song(domain_artifacts):
             part2.append(copy.copy(part2[i]))
 
     # Write the song to file
+    change_instrument(part1, random.randint(0, 127))
+    change_instrument(part2, random.randint(0, 127))
     song = stream.Stream([part1, part2])
     song.write('midi', 'outputs/the_song.midi')
 
