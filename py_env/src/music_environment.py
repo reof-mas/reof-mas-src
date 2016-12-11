@@ -1,19 +1,20 @@
 from creamas import Environment
 import logging
 from music21 import *
-
+from utility import *
 
 class MusicEnvironment(Environment):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.save_iter = 3
+        self.save_iter = 1
 
     def vote(self, age):
         artifacts = self.perform_voting(method='mean')
         if len(artifacts) > 0:
             accepted = artifacts[0][0]
             value = artifacts[0][1]
+            #print(self_similarity(accepted))
             self.add_artifact(accepted)
             self.write_midi(accepted.obj, 'outputs/artefact_'+str(age)+'.mid', age)
             self.logger.log(logging.INFO, "Vote winner by {}: {} (val={})"
@@ -25,13 +26,9 @@ class MusicEnvironment(Environment):
 
     def write_midi(self, sequence, filename, age=-1):
         def _write_midi(sequence, filename):
-            s = stream.Stream()
-            for i in range(len(sequence)):
-                n = note.Note(sequence[i][0])
-                n.quarterLength = sequence[i][1]
-                s.append(n)
+            strm = sequence_to_stream(sequence)
             # write into the file
-            s.write('midi', filename)
+            strm.write('midi', filename)
 
         if age == -1:
             _write_midi(sequence, filename)

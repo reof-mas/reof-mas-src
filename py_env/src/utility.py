@@ -1,5 +1,7 @@
 import os, shutil
-from music21 import interval, note
+from music21 import *
+from numpy import genfromtxt
+import random
 
 def levenshtein(s, t):
     """Compute the edit distance between two strings.
@@ -103,3 +105,58 @@ def delete_outputs(folder):
                 os.unlink(file_path)
         except Exception as e:
             print(e)
+
+def sequence_to_stream(sequence):
+    s = stream.Stream()
+    for i in range(len(sequence)):
+        n = note.Note(sequence[i][0])
+        n.quarterLength = sequence[i][1]
+        s.append(n)
+    return s
+
+def get_instruments():
+    """
+    Returns the instrument list from a csv file
+    :return: instrument list
+    """
+    numpy_data = genfromtxt('midi-instruments.csv', delimiter=',', dtype='U13')
+    instrument_list = numpy_data.tolist()
+    return instrument_list
+
+def instrument_family(instrument_list, family_name = 'sound_effects'):
+    """
+    Returns instrument number by family name
+    :param family_name: Family name of the instrument
+
+                        List of families in the file
+                        piano, chromatic_percussion, organ,
+                        guitar, bass, strings, ensemble,
+                        brass, reed, pipe, synth_lead, synth_pad,
+                        synth_effects, ethnic, percussive, sound_effects
+
+    :return: Returns random instrument number by family names
+    """
+    candidates = list()
+    for i in instrument_list:
+        # 4th column is family name
+        if i[3] == family_name:
+            candidates.append(i)
+
+    if len(candidates) < 1:
+        raise Exception("Write a valid family name")
+
+    return int(random.choice(candidates)[0])
+
+def change_instrument(stream, number):
+    """
+    Changes instrument of the given stream.
+
+    :param stream: music21 Stream object
+    :param number: Instrument number see the midi-instrument.csv for more detail
+    """
+    if number < 0 or number > 127:
+        raise Exception("Invalid instrument")
+
+    i = instrument.Instrument()
+    i.midiProgram = number
+    stream.insert(0, i)
