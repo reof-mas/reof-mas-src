@@ -4,6 +4,7 @@ import utility
 import logging
 import markov_chain
 import random
+import aiomas
 
 
 class ComposerAgent(CreativeAgent):
@@ -82,7 +83,6 @@ class ComposerAgent(CreativeAgent):
 
         return Artifact(self, melody)
 
-
     def value(self, artifact):
         """
         Computes value of an artifact. Currently only uses Zipf's law.
@@ -95,7 +95,7 @@ class ComposerAgent(CreativeAgent):
 
         return utility.zipfs_law(artifact)
 
-    def invent(self, n):
+    async def invent(self, n):
         """
         Invents a new melody. Generates n melodies and selects the best.
 
@@ -107,9 +107,12 @@ class ComposerAgent(CreativeAgent):
         """
         best_artifact = self.generate()
         max_evaluation, framing = self.evaluate(best_artifact)
+        audience = await self.env.connect(self.audience_addr)
         for _ in range(n-1):
             artifact = self.generate()
-            evaluation, fr = self.evaluate(artifact)
+            self_evaluation, fr = self.evaluate(artifact)
+            audience_opinion = await audience.give_opinion(artifact)
+            evaluation  = (self_evaluation + audience_opinion) / 2
             if evaluation > max_evaluation:
                 best_artifact = artifact
                 max_evaluation = evaluation
@@ -214,7 +217,7 @@ class ComposerAgent(CreativeAgent):
 
 
         # Invent a new melody
-        artifact = self.invent(self.N)
+        artifact = await self.invent(self.N)
         # Add the artifact itself to memory
         self.mem.memorize(artifact)
 

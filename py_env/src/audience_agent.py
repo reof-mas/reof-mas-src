@@ -8,12 +8,17 @@ class AudienceAgent(CreativeAgent):
     def __init__(self, env):
         super().__init__(env)
 
-    def opinion(self, artifact):
-        return utility.zipfs_law(artifact)
-
     @aiomas.expose
     async def give_opinion(self, artifact):
-        return self.opinion(artifact)
+        """
+        Gives an uneducated opinion about an artifact.
+
+        Arguments:
+            artifact: artifact to be evaluated
+        Returns:
+            opinion about an artifact
+        """
+        return utility.zipfs_law(artifact)
 
     async def act(self):
         return

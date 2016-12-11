@@ -3,8 +3,10 @@ import markov_chain
 from composer import ComposerAgent
 from audience_agent import AudienceAgent
 from creamas import Simulation
+from serializers import get_artifact_ser
 from utility import *
 from music21 import *
+import aiomas
 import copy
 
 def main():
@@ -16,7 +18,7 @@ def main():
     directory_path = "../../melodies/classical/bach"
     transition_counts = markov_chain.get_markov_chain(directory_path, order=selected_order)
 
-    env = MusicEnvironment.create(('localhost', 5555))
+    env = MusicEnvironment.create(('localhost', 5555), codec=aiomas.MsgPack, extra_serializers=[get_artifact_ser])
     env.log_folder = 'logs'
 
     # Create audience
