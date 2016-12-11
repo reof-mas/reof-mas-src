@@ -1,6 +1,7 @@
 from music_environment import MusicEnvironment
 import markov_chain
 from composer import ComposerAgent
+from audience_agent import AudienceAgent
 from creamas import Simulation
 from utility import *
 from music21 import *
@@ -17,10 +18,12 @@ def main():
 
     env = MusicEnvironment.create(('localhost', 5555))
     env.log_folder = 'logs'
-    for i in range(5):
-        agent = ComposerAgent(env, transition_counts)
 
-    # Audience agents also?
+    # Create audience
+    audience = AudienceAgent(env)
+
+    for i in range(5):
+        agent = ComposerAgent(env, transition_counts, audience.addr)
 
     sim = Simulation(env, log_folder='logs', callback=env.vote)
     sim.async_steps(5)
