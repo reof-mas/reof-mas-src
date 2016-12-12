@@ -47,58 +47,92 @@
 <dl class="function">
 <dt id="utility.change_instrument">
 <code class="descclassname">utility.</code><code class="descname">change_instrument</code><span class="sig-paren">(</span><em>stream</em>, <em>number</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.change_instrument" title="Permalink to this definition">¶</a></dt>
-<dd><p>Changes instrument of the given stream.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
-<li><strong>stream</strong> &#8211; music21 Stream object</li>
-<li><strong>number</strong> &#8211; Instrument number see the midi-instrument.csv for more detail</li>
-</ul>
-</td>
-</tr>
-</tbody>
-</table>
+<dd><p>Changes instrument of the given stream or part</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>stream: music21 Stream/Part object
+number: Instrument number see the midi-instrument.csv for more detail</dd>
+</dl>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="utility.convert_melody_to_steps">
 <code class="descclassname">utility.</code><code class="descname">convert_melody_to_steps</code><span class="sig-paren">(</span><em>melody</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.convert_melody_to_steps" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Helper function to convert the melody into steps</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>melody: Melody list, consisting of Note objects</dd>
+<dt>Returns:</dt>
+<dd>List of steps</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="utility.delete_outputs">
 <code class="descclassname">utility.</code><code class="descname">delete_outputs</code><span class="sig-paren">(</span><em>folder</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.delete_outputs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes the all contents in the folder, does not remove folder</p>
+<dd><p>Deletes all contents in the given path, does not remove folder itself
+Args:</p>
+<blockquote>
+<div>folder: filepath of the folder</div></blockquote>
+<p>Returns:</p>
 </dd></dl>
 
 <dl class="function">
 <dt id="utility.get_instruments">
 <code class="descclassname">utility.</code><code class="descname">get_instruments</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#utility.get_instruments" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the instrument list from a csv file
-:return: instrument list</p>
+<dd><blockquote>
+<div>Returns the instrument list from a csv file</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>instrument list</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="utility.instrument_family">
 <code class="descclassname">utility.</code><code class="descname">instrument_family</code><span class="sig-paren">(</span><em>instrument_list</em>, <em>family_name='sound_effects'</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.instrument_family" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns instrument number by family name
-:param family_name: Family name of the instrument</p>
-<blockquote>
+<dd><blockquote>
+<div>Returns instrument number by family name</div></blockquote>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd><p class="first">instrument_list: Instrument list genereated by get_instruments method
+family_name: Family name of the instrument</p>
+<blockquote class="last">
 <div>List of families in the file
 piano, chromatic_percussion, organ,
 guitar, bass, strings, ensemble,
 brass, reed, pipe, synth_lead, synth_pad,
 synth_effects, ethnic, percussive, sound_effects</div></blockquote>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">Returns random instrument number by family names</td>
-</tr>
-</tbody>
-</table>
+</dd>
+<dt>Returns:</dt>
+<dd>Random instrument number by family name</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.inverse">
+<code class="descclassname">utility.</code><code class="descname">inverse</code><span class="sig-paren">(</span><em>strm</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.inverse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inverses the stream. Each step up is converted into a step down and vice-versa.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>strm: Stream of music21
+step: (int) index of the key to be transposed to</dd>
+<dt>Returns:</dt>
+<dd>an inversed version Stream of strm.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.inverse_and_retrograde">
+<code class="descclassname">utility.</code><code class="descname">inverse_and_retrograde</code><span class="sig-paren">(</span><em>strm</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.inverse_and_retrograde" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrogrades and inverses the stream.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>strm: Stream of music21</dd>
+<dt>Returns:</dt>
+<dd>a retrograde version Stream of strm.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -106,32 +140,79 @@ synth_effects, ethnic, percussive, sound_effects</div></blockquote>
 <code class="descclassname">utility.</code><code class="descname">levenshtein</code><span class="sig-paren">(</span><em>s</em>, <em>t</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.levenshtein" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute the edit distance between two strings.
 From Wikipedia article; Iterative with two matrix rows.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>s: Array 1
+t: Array 2</dd>
+<dt>Returns:</dt>
+<dd>Edit distance between arr1 and arr2</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.retrograde">
+<code class="descclassname">utility.</code><code class="descname">retrograde</code><span class="sig-paren">(</span><em>strm</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.retrograde" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrogrades the stream. The notes at the end come to the begining and vice-versa.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>strm: Stream of music21</dd>
+<dt>Returns:</dt>
+<dd>a retrograde version Stream of strm.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="utility.self_similarity">
 <code class="descclassname">utility.</code><code class="descname">self_similarity</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.self_similarity" title="Permalink to this definition">¶</a></dt>
-<dd><table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>I</strong> &#8211; </td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"></td>
-</tr>
-</tbody>
-</table>
+<dd><p>Self similarity measure of a sequence, by Murray&amp;Ventura 2012.
+It measures how complex the sequence is.
+Related paper: <a class="reference external" href="http://axon.cs.byu.edu/papers/murray2012mume">http://axon.cs.byu.edu/papers/murray2012mume</a></p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>artifact: Artifact-sequence to be measured</dd>
+<dt>Returns:</dt>
+<dd>Self similarity measure between 0.0 - 1.0</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="utility.sequence_to_part">
 <code class="descclassname">utility.</code><code class="descname">sequence_to_part</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.sequence_to_part" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Sequence to part conversion</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>sequence: Artefact sequence generated by agents</dd>
+<dt>Returns:</dt>
+<dd>Converted sequence to stream.Part() object</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="utility.sequence_to_stream">
 <code class="descclassname">utility.</code><code class="descname">sequence_to_stream</code><span class="sig-paren">(</span><em>sequence</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.sequence_to_stream" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Sequence to stream conversion
+Args:</p>
+<blockquote>
+<div>sequence: Artefact sequence generated by agents</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>Converted sequence to stream.Stream() object</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="utility.transpose">
+<code class="descclassname">utility.</code><code class="descname">transpose</code><span class="sig-paren">(</span><em>strm</em>, <em>step</em><span class="sig-paren">)</span><a class="headerlink" href="#utility.transpose" title="Permalink to this definition">¶</a></dt>
+<dd><p>Transposes the stream into the key given by step.
+Args:</p>
+<blockquote>
+<div>strm: Stream of music21
+step: (int) index of the key to be transposed to</div></blockquote>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>a transposed version Stream of strm.</dd>
+</dl>
+</dd></dl>
 
 <dl class="function">
 <dt id="utility.zipfs_law">
