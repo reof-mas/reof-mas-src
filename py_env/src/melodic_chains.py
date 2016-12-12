@@ -15,7 +15,9 @@ def main():
     instrument_list = get_instruments()
 
     selected_order = 2
-    directory_path = "../../melodies/classical/bach"
+    #directory_path = "../../melodies/classical/bach"
+    #directory_path = "../../melodies/classical/mozart"
+    directory_path = "../../melodies/classical/schubert"
     transition_counts = markov_chain.get_markov_chain(directory_path, order=selected_order)
 
     env = MusicEnvironment.create(('localhost', 5555), codec=aiomas.MsgPack, extra_serializers=[get_artifact_ser])
@@ -119,7 +121,7 @@ def create_song2(domain_artifacts):
     final_stream=stream.Stream()
     final_stream.append(motif1)
     for i in range(5):
-        number1=random.randint(0,3)
+        number1=random.randint(0,4)
         if number1 is 0:
             final_stream.append(transpose(motif1, random.randint(0,11)))
         elif number1 is 1:
