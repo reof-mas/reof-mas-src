@@ -15,9 +15,9 @@ def main():
     instrument_list = get_instruments()
 
     selected_order = 2
-    #directory_path = "../../melodies/classical/bach"
+    directory_path = "../../melodies/classical/bach"
     #directory_path = "../../melodies/classical/mozart"
-    directory_path = "../../melodies/classical/schubert"
+    #directory_path = "../../melodies/classical/schubert"
     transition_counts = markov_chain.get_markov_chain(directory_path, order=selected_order)
 
     env = MusicEnvironment.create(('localhost', 5555), codec=aiomas.MsgPack, extra_serializers=[get_artifact_ser])
@@ -38,7 +38,7 @@ def main():
     # Concatenate the melodies
     #concat_melodies(env.artifacts, instrument_list)
     #create_song2(env.artifacts)
-    create_songs(env.artifacts)
+    create_song(env.artifacts)
 
 
 # TODO: change the argument types
@@ -63,10 +63,10 @@ def create_song(domain_artifacts):
 
     for artifact in domain_artifacts:
         similarity = self_similarity(artifact)
-        if similarity > highest_complexity:
+        if similarity < highest_complexity:
             highest_complexity = similarity
             most_complex = artifact
-        if similarity < lowest_complexity:
+        if similarity > lowest_complexity:
             lowest_complexity = similarity
             least_complex = artifact
 
@@ -78,13 +78,31 @@ def create_song(domain_artifacts):
         note.octave = 3
 
     # Duplicate part1 a couple of times
-    for i in range(2):
-        for note in part1:
-            part1.append(copy.copy(note))
+
+    for i in range(5):
+            number1 = random.randint(0, 3)
+            if number1 is 0:
+                seq1 = transpose(part1, random.randint(0, 11))
+                seq2 = transpose(part2, random.randint(0, 11))
+            elif number1 is 1:
+                seq1 = inverse(part1)
+                seq2 = inverse(part2)
+            elif number1 is 2:
+                seq1 = retrograde(part1)
+                seq2 = retrograde(part2)
+            elif number1 is 3:
+                seq1 = inverse_and_retrograde(part1)
+                seq2 = inverse_and_retrograde(part2)
+
+            for note in seq1:
+                part1.append(copy.copy(note))
+
+            for note in seq2:
+                part2.append(copy.copy(note))
 
     # Make part2 as long as part1
     part2_len = len(part2)
-    while part2.duration.components[0][2] < part1.duration.components[0][2]:
+    while part2.duration.quarterLength < part1.duration.quarterLength:
         for i in range(part2_len):
             part2.append(copy.copy(part2[i]))
 
