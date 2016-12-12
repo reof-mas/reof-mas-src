@@ -1,6 +1,5 @@
 from creamas import Environment
 import logging
-from music21 import *
 from utility import *
 
 class MusicEnvironment(Environment):

@@ -13,7 +13,8 @@ Source code documentation
 
 Project objective
 =================
-Our multi-agent system attempts to generate music with structure resembling that of compositions devised by human composers. (TODO: more content)
+
+Our multi-agent system attempts to generate monophonic songs with structure resembling that of compositions devised by human composers.
 
 Terminology
 ===========
