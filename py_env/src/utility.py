@@ -351,3 +351,4 @@ def inverse_and_retrograde(strm):
     """
 
     return inverse(retrograde(strm))
+
