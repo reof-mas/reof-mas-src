@@ -30,14 +30,15 @@ def main():
         agent = ComposerAgent(env, transition_counts, audience.addr)
 
     sim = Simulation(env, log_folder='logs', callback=env.vote)
-    sim.async_steps(20)
+    sim.async_steps(5)
     sim.end()
     # Test this
     MusicEnvironment.shutdown(env)
 
     # Concatenate the melodies
     #concat_melodies(env.artifacts, instrument_list)
-    create_song2(env.artifacts)
+    #create_song2(env.artifacts)
+    create_songs(env.artifacts)
 
 
 # TODO: change the argument types
@@ -110,8 +111,8 @@ def create_song2(domain_artifacts):
             lowest_complexity = similarity
             least_complex = artifact
 
-    motif1 = sequence_to_stream(least_complex.obj)
-    motif2 = sequence_to_stream(most_complex.obj)
+    motif1 = sequence_to_stream(most_complex.obj)
+    #motif2 = sequence_to_stream(most_complex.obj)
 
     # Change octave of the simpler part
     for note in motif1:
@@ -136,6 +137,30 @@ def create_song2(domain_artifacts):
     change_instrument(final_stream, random.randint(0, 127))
     song = stream.Stream(final_stream)
     song.write('midi', 'outputs/the_song.midi')
+
+def create_songs(domain_artifacts):
+    j = 1
+    for artifact in domain_artifacts:
+        motif1 = sequence_to_stream(artifact.obj)
+        final_stream=stream.Stream()
+        final_stream.append(motif1)
+        for i in range(5):
+            number1=random.randint(0,3)
+            if number1 is 0:
+                final_stream.append(transpose(motif1, random.randint(0,11)))
+            elif number1 is 1:
+                final_stream.append(inverse(motif1))
+            elif number1 is 2:
+                final_stream.append(retrograde(motif1))
+            elif number1 is 3:
+                final_stream.append(inverse_and_retrograde(motif1))
+        final_stream.append(inverse(motif1))
+
+        # Write the song to file
+        change_instrument(final_stream, random.randint(0, 127))
+        song = stream.Stream(final_stream)
+        song.write('midi', 'outputs/the_song' + str(j) + '.midi')
+        j += 1
 
 if __name__ == "__main__":
     main()
