@@ -1,5 +1,6 @@
 from music_environment import MusicEnvironment
 import markov_chain
+import math
 from composer import ComposerAgent
 from audience_agent import AudienceAgent
 from creamas import Simulation
@@ -9,16 +10,30 @@ from music21 import *
 import aiomas
 import copy
 
+
+def _init_agents(env, agent_number, folder1, folder2, ordr, audience):
+    agent_vocab = 0
+    tc1 = markov_chain.get_markov_chain(folder1, order=ordr)
+    tc2 = markov_chain.get_markov_chain(folder2, order=ordr)
+    for i in range(agent_number):
+        if agent_vocab < math.ceil(agent_number/2):
+            agent = ComposerAgent(env, tc1, audience.addr)
+        else:
+            agent = ComposerAgent(env, tc2, audience.addr)
+        agent_vocab += 1
+
 def main():
     # Delete all the contents, midi files, in the outputs folder
     delete_outputs('outputs')
     instrument_list = get_instruments()
 
+    iteration = 5
+    agent_number = 6
     selected_order = 2
-    directory_path = "../../melodies/classical/bach"
-    #directory_path = "../../melodies/classical/mozart"
+    path1 = "../../melodies/classical/bach"
+    path2 = "../../melodies/classical/mozart"
     #directory_path = "../../melodies/classical/schubert"
-    transition_counts = markov_chain.get_markov_chain(directory_path, order=selected_order)
+    #transition_counts = markov_chain.get_markov_chain(directory_path, order=selected_order)
 
     env = MusicEnvironment.create(('localhost', 5555), codec=aiomas.MsgPack, extra_serializers=[get_artifact_ser])
     env.log_folder = 'logs'
@@ -26,11 +41,10 @@ def main():
     # Create audience
     audience = AudienceAgent(env)
 
-    for i in range(5):
-        agent = ComposerAgent(env, transition_counts, audience.addr)
+    _init_agents(env, agent_number, path1, path2, selected_order, audience)
 
     sim = Simulation(env, log_folder='logs', callback=env.vote)
-    sim.async_steps(5)
+    sim.async_steps(iteration)
     sim.end()
     # Test this
     MusicEnvironment.shutdown(env)
@@ -38,7 +52,7 @@ def main():
     # Concatenate the melodies
     #concat_melodies(env.artifacts, instrument_list)
     #create_song2(env.artifacts)
-    create_song(env.artifacts)
+    create_songs(env.artifacts)
 
 
 # TODO: change the argument types

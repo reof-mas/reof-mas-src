@@ -74,7 +74,9 @@ def self_similarity(artifact):
         artifact: Artifact-sequence to be measured
 
     Returns:
-        Self similarity measure between 0.0 - 1.0
+        Self similarity measure between 0.0 - 1.0, lowest self
+        similarity means complex sequence, whereas, highest self
+        similarity value means simple sequence.
     """
 
     melody = artifact.obj
@@ -349,3 +351,4 @@ def inverse_and_retrograde(strm):
     """
 
     return inverse(retrograde(strm))
+
