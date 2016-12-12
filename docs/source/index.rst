@@ -15,10 +15,10 @@ Project objective
 Our multi-agent system attempts to generate monophonic songs with structure resembling that of compositions devised by human composers.
 
 
-Running the demonstration
-=========================
+Installing and running the program
+==================================
 
-Installing the environment requires python 3.5 and virtualenv.
+Installing and using the program requires python 3.5, virtualenv and lilypond (http://lilypond.org/).
 In order to download the program and run its demonstration, use the following commands:
 ::
         git clone git@github.com:reof-mas/reof-mas-src.git
