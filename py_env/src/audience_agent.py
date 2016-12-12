@@ -21,4 +21,7 @@ class AudienceAgent(CreativeAgent):
         return utility.zipfs_law(artifact)
 
     async def act(self):
+        """
+        Does nothing.
+        """
         return

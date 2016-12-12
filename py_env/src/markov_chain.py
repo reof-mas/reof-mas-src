@@ -48,7 +48,7 @@ def get_markov_chain(directory_path, order=1):
                 notes.append((note.name, note.duration.quarterLength))
 
             states = get_states(notes, order)
-            transitions = _add_transitions(states, transitions)
+            add_transitions(states, transitions)
 
     return transitions
 
@@ -60,7 +60,7 @@ def get_transitions_probs_for_state(succ_counts):
     Args:
         succ_counts: dictionary where key is successor state and value is count
     Returns:
-        successor probabilites for a state
+        successor probabilities for a state
     """
     total = sum(succ_counts.values())
     succ_probs = {}
@@ -97,15 +97,13 @@ def get_states(notes, order = 1):
     return states
 
 
-def _add_transitions(states, transitions):
+def add_transitions(states, transitions):
     """
-    Computes transition counts of states
+    Adds transitions in states to transitions.
 
     Args:
-        states: The states of the markov chain
-        transitions: Adds state transitions from states to transitions
-    Returns:
-        Transition counts
+        states: states extracted from a sequence of notes
+        transitions: adds state transitions from states to transitions
     """
     for i in range(len(states) - 1):
         # A state is represented as a note and duration
@@ -122,4 +120,3 @@ def _add_transitions(states, transitions):
             #print("Increment state : {} {}".format(pred, succ))
             transitions[pred][succ] += 1.0
 
-    return transitions

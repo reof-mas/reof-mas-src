@@ -10,15 +10,14 @@ import aiomas
 class ComposerAgent(CreativeAgent):
     """
     Agent generates new melodies based on a markov chain.
+        Args:
+        env: subclass of :py:class:`~creamas.core.environment.Environment`
+        transition_counts: transition counts of a markov chain
+        audience_addr: address of the audience agent
+        order: the order of the markov chain
+        log_folder: folder for logs
     """
     def __init__(self, env, transition_counts, audience_addr, order=1, log_folder = 'logs'):
-        """
-        Args:
-            env: subclass of :py:class:`~creamas.core.environment.Environment`
-            transition_counts: transition counts of a markov chain
-            order: the order of the markov chain
-            log_folder: folder for logs
-        """
         super().__init__(env, log_folder=log_folder)
         self.transition_counts = transition_counts
         self.transition_probs = {}
@@ -33,7 +32,6 @@ class ComposerAgent(CreativeAgent):
     def update_stp(self):
         """
         Converts state transition counts to probabilities
-        :return:
         """
         for state, succ_counts in self.transition_counts.items():
             #print("state: {}, succ_counts: {}".format(state, succ_counts))
@@ -133,8 +131,7 @@ class ComposerAgent(CreativeAgent):
 
     def learn(self, artifact):
         """
-        Adds the given artifact to state transition counts if not exists, increments
-        its value otherwise. Then, recalculates the state transition probabilities again
+        Adds transitions in artifact to state transition counts and updates state transition probabilities.
 
         Args:
             artifact: Artifact to be learnt
@@ -143,12 +140,20 @@ class ComposerAgent(CreativeAgent):
         states = markov_chain.get_states(artifact.obj, self.order)
         #print("Incoming artefact {}".format(notes))
 
-        self.transition_counts = markov_chain._add_transitions(states, self.transition_counts)
+        markov_chain.add_transitions(states, self.transition_counts)
         # Dont forget to update state transition probabilities
         for i in range(len(states)-1):
             self.transition_probs[states[i]] = markov_chain.get_transitions_probs_for_state(self.transition_counts[states[i]])
 
     def evaluate(self, artifact):
+        """
+        Evaluates an artifact based on value, novelty and surprise.
+
+        Args:
+            artifact: artifact to be evaluated
+        Returns:
+            evaluation and framing
+        """
         value = self.value(artifact)
         novelty, novelty_framing = self.novelty(artifact)
         surprise = self.surprise(artifact)
@@ -189,12 +194,12 @@ class ComposerAgent(CreativeAgent):
 
     def surprise(self, artifact):
         """
-        Calculates the surprisigness of an artifact based on the pseudolikelihood of it being created using the agent's markov chain.
+        Calculates the surprisingness of an artifact based on the pseudo-likelihood of it being created using the agent's Markov chain.
 
         Args:
             artifact: artifact to be evaluated
         Returns:
-            Surprisigness of an artifact
+            Surprisingness of an artifact
         """
         likelihood = 1
         states = markov_chain.get_states(artifact.obj, self.order)
@@ -208,6 +213,9 @@ class ComposerAgent(CreativeAgent):
         return 1-likelihood
 
     async def act(self):
+        """
+        Agent memorizes and learns a random artifact from domain. Then agent invents a new artifact, which is then memorized and added to candidates for voting.
+        """
         # Add random domain artifacts to memory
         if len(self.env.artifacts) > 0:
             domain_artifact = random.choice(self.env.artifacts)
