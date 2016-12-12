@@ -35,7 +35,7 @@ def main():
 
     # Concatenate the melodies
     #concat_melodies(env.artifacts, instrument_list)
-    create_song(env.artifacts)
+    create_song2(env.artifacts)
 
 
 # TODO: change the argument types
@@ -89,6 +89,50 @@ def create_song(domain_artifacts):
     change_instrument(part1, random.randint(0, 127))
     change_instrument(part2, random.randint(0, 127))
     song = stream.Stream([part1, part2])
+    song.write('midi', 'outputs/the_song.midi')
+
+
+def create_song2(domain_artifacts):
+    # Choose the artifacts with lowest and highest complexities for different tracks in the song
+    highest_complexity = 0
+    lowest_complexity = 1
+    most_complex = domain_artifacts[0]
+    least_complex = domain_artifacts[0]
+
+    for artifact in domain_artifacts:
+        similarity = self_similarity(artifact)
+        if similarity > highest_complexity:
+            highest_complexity = similarity
+            most_complex = artifact
+        if similarity < lowest_complexity:
+            lowest_complexity = similarity
+            least_complex = artifact
+
+    motif1 = sequence_to_stream(least_complex.obj)
+    motif2 = sequence_to_stream(most_complex.obj)
+
+    # Change octave of the simpler part
+    for note in motif1:
+        note.octave = 3
+
+    #
+    final_stream=stream.Stream()
+    final_stream.append(motif1)
+    for i in range(5):
+        number1=random.randint(0,3)
+        if number1 is 0:
+            final_stream.append(transpose(motif1, random.randint(0,11)))
+        elif number1 is 1:
+            final_stream.append(inverse(motif1))
+        elif number1 is 2:
+            final_stream.append(retrograde(motif1))
+        elif number1 is 3:
+            final_stream.append(inverse_and_retrograde(motif1))
+    final_stream.append(inverse(motif1))
+
+    # Write the song to file
+    change_instrument(final_stream, random.randint(0, 127))
+    song = stream.Stream(final_stream)
     song.write('midi', 'outputs/the_song.midi')
 
 if __name__ == "__main__":
