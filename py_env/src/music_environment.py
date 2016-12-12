@@ -10,6 +10,7 @@ class MusicEnvironment(Environment):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.save_iter = 1
+        self.songs = []
 
     def vote(self, age):
         """
@@ -31,6 +32,7 @@ class MusicEnvironment(Environment):
             self.logger.log(logging.INFO, "No vote winner!")
 
         self.clear_candidates()
+
 
     def write_midi(self, sequence, filename, age=-1):
         """
