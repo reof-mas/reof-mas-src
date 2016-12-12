@@ -52,7 +52,7 @@ def main():
     # Concatenate the melodies
     #concat_melodies(env.artifacts, instrument_list)
     #create_song2(env.artifacts)
-    create_songs(env.artifacts)
+    create_song(env.artifacts)
 
 
 # TODO: change the argument types
@@ -70,8 +70,8 @@ def concat_melodies(a, instrument_list):
 
 def create_song(domain_artifacts):
     # Choose the artifacts with lowest and highest complexities for different tracks in the song
-    highest_complexity = 0
-    lowest_complexity = 1
+    highest_complexity = 1
+    lowest_complexity = 0
     most_complex = domain_artifacts[0]
     least_complex = domain_artifacts[0]
 
@@ -84,8 +84,10 @@ def create_song(domain_artifacts):
             lowest_complexity = similarity
             least_complex = artifact
 
-    part1 = sequence_to_part(least_complex.obj)
-    part2 = sequence_to_part(most_complex.obj)
+    motif1 = sequence_to_part(least_complex.obj)
+    motif2 = sequence_to_part(most_complex.obj)
+    part1 = stream.Part()
+    part2 = stream.Part()
 
     # Change octave of the simpler part
     for note in part1:
@@ -96,17 +98,17 @@ def create_song(domain_artifacts):
     for i in range(5):
             number1 = random.randint(0, 3)
             if number1 is 0:
-                seq1 = transpose(part1, random.randint(0, 11))
-                seq2 = transpose(part2, random.randint(0, 11))
+                seq1 = transpose(motif1, random.randint(0, 11))
+                seq2 = transpose(motif2, random.randint(0, 11))
             elif number1 is 1:
-                seq1 = inverse(part1)
-                seq2 = inverse(part2)
+                seq1 = inverse(motif1)
+                seq2 = inverse(motif2)
             elif number1 is 2:
-                seq1 = retrograde(part1)
-                seq2 = retrograde(part2)
+                seq1 = retrograde(motif1)
+                seq2 = retrograde(motif2)
             elif number1 is 3:
-                seq1 = inverse_and_retrograde(part1)
-                seq2 = inverse_and_retrograde(part2)
+                seq1 = inverse_and_retrograde(motif1)
+                seq2 = inverse_and_retrograde(motif2)
 
             for note in seq1:
                 part1.append(copy.copy(note))
