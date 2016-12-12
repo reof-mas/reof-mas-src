@@ -30,7 +30,7 @@ def main():
         agent = ComposerAgent(env, transition_counts, audience.addr)
 
     sim = Simulation(env, log_folder='logs', callback=env.vote)
-    sim.async_steps(5)
+    sim.async_steps(20)
     sim.end()
     # Test this
     MusicEnvironment.shutdown(env)
