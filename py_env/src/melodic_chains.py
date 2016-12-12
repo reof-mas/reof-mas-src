@@ -121,7 +121,7 @@ def create_song2(domain_artifacts):
     final_stream=stream.Stream()
     final_stream.append(motif1)
     for i in range(5):
-        number1=random.randint(0,4)
+        number1=random.randint(0,3)
         if number1 is 0:
             final_stream.append(transpose(motif1, random.randint(0,11)))
         elif number1 is 1:
