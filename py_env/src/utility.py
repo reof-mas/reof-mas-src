@@ -233,3 +233,67 @@ def zipfs_law(artifact):
     pseudo_fit = pseudo_fit / len(sorted_frequencies)
 
     return pseudo_fit
+
+def transpose(strm, step):
+    #TODO: this is still transposing to another key, it would be great to transpose but
+    #to keep things in C major.
+    """
+    Transposes the stream into the key given by step.
+    Args:
+        strm: Stream of music21
+        step: (int) index of the key to be transposed to
+
+    Returns:
+        a transposed version Stream of strm.
+
+    """
+    return strm.transpose(step)
+
+def inverse(strm):
+    """
+    Inverses the stream. Each step up is converted into a step down and vice-versa.
+
+    Args:
+        strm: Stream of music21
+        step: (int) index of the key to be transposed to
+
+    Returns:
+        an inversed version Stream of strm.
+
+    """
+
+    return strm.invertDiatonic(note.Note(0), inPlace=False)
+
+def retrograde(strm):
+    """
+    Retrogrades the stream. The notes at the end come to the begining and vice-versa.
+
+    Args:
+        strm: Stream of music21
+
+    Returns:
+        a retrograde version Stream of strm.
+
+    """
+    retrograded=stream.Stream()
+    l=[]
+    for note in strm:
+        l.append(note)
+    for note in reversed(l):
+        retrograded.append(note)
+
+    return retrograded
+
+def inverse_and_retrograde(strm):
+    """
+    Retrogrades and inverses the stream.
+
+    Args:
+        strm: Stream of music21
+
+    Returns:
+        a retrograde version Stream of strm.
+
+    """
+
+    return inverse(retrograde(strm))
