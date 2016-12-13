@@ -1,3 +1,7 @@
+"""
+This is the entry point of our program.
+"""
+
 from music_environment import MusicEnvironment
 import markov_chain
 import math
@@ -12,6 +16,17 @@ import copy
 
 
 def _init_agents(env, agent_number, folder1, folder2, ordr, audience):
+    """
+    Creates composer agents.
+
+    Args:
+        env: environment for the agents
+        agent_number: amount of agents to create
+        folder1: directory path of an inspiring set
+        folder2: directory path of another insipiring set
+        ordr: order of the markov chains
+        audience: audience agent
+    """
     agent_vocab = 0
     tc1 = markov_chain.get_markov_chain(folder1, order=ordr)
     tc2 = markov_chain.get_markov_chain(folder2, order=ordr)
@@ -22,7 +37,11 @@ def _init_agents(env, agent_number, folder1, folder2, ordr, audience):
             agent = ComposerAgent(env, tc2, audience.addr)
         agent_vocab += 1
 
+
 def main():
+    """
+    The main function of the program.
+    """
     # Delete all the contents, midi files, in the outputs folder
     delete_outputs('outputs')
     instrument_list = get_instruments()
@@ -55,20 +74,13 @@ def main():
     create_song(env.artifacts)
 
 
-# TODO: change the argument types
-# Find a way to combine the melodies not just concat them
-def concat_melodies(a, instrument_list):
-    s = stream.Stream()
-    for i in range(len(a)):
-        t = sequence_to_stream(a[i].obj)
-        instrument_program = instrument_family(instrument_list, 'percussive')
-        # change_instrument(t, random.randint(0, 127))
-        change_instrument(t, instrument_program)
-        s.append(t)
-
-    s.write('midi', 'outputs/song.mid')
-
 def create_song(domain_artifacts):
+    """
+    Creates a song from domain artifacts. Creates a two track song with random thematic transformations. Selects the most complex and the least complex theme for different tracks.
+
+    Args:
+        domain_artifacts: list of domain artifacts
+    """
     # Choose the artifacts with lowest and highest complexities for different tracks in the song
     highest_complexity = 1
     lowest_complexity = 0
@@ -93,8 +105,7 @@ def create_song(domain_artifacts):
     for note in part1:
         note.octave = 3
 
-    # Duplicate part1 a couple of times
-
+    # Pick random thematic transformations
     for i in range(5):
             number1 = random.randint(0, 3)
             if number1 is 0:
@@ -130,6 +141,12 @@ def create_song(domain_artifacts):
 
 
 def create_song2(domain_artifacts):
+    """
+    Creates a song from domain artifacts. Creates a monophonic song with random thematic transformations.
+
+    Args:
+        domain_artifacts: list of domain artifacts
+    """
     # Choose the artifacts with lowest and highest complexities for different tracks in the song
     highest_complexity = 0
     lowest_complexity = 1
@@ -152,7 +169,7 @@ def create_song2(domain_artifacts):
     for note in motif1:
         note.octave = 3
 
-    #
+    # Pick random thematic transformations
     final_stream=stream.Stream()
     final_stream.append(motif1)
     for i in range(5):
@@ -173,6 +190,12 @@ def create_song2(domain_artifacts):
     song.write('midi', 'outputs/the_song.midi')
 
 def create_songs(domain_artifacts):
+    """
+    Creates a song from all the themes in domain artifacts.
+
+    Args:
+        domain_artifacts: list of domain artifacts
+    """
     j = 1
     for artifact in domain_artifacts:
         motif1 = sequence_to_stream(artifact.obj)

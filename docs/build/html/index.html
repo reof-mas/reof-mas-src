@@ -48,11 +48,18 @@
 </div>
 <div class="section" id="project-objective">
 <h2>Project objective<a class="headerlink" href="#project-objective" title="Permalink to this headline">¶</a></h2>
-<p>Our multi-agent system attempts to generate creative monophonic songs with structure resembling that of compositions devised by human composers.</p>
+<p>Our multi-agent system attempts to first generate musical themes and the best ones are used to
+generate monophonic songs with structure resembling that of compositions devised by human composers.</p>
 </div>
-<div class="section" id="short-summary">
-<h2>Short summary<a class="headerlink" href="#short-summary" title="Permalink to this headline">¶</a></h2>
-<p>Each agent has its own Markov chain of notes, which has been initially created from real songs. On each iteration step every agent generates a short theme using their Markov chain. The agents evaluate all the created themes and the best one is chosen to be the base of a song. TODO: Filipe can surely explain how the song is created here.</p>
+<div class="section" id="summary">
+<h2>Summary<a class="headerlink" href="#summary" title="Permalink to this headline">¶</a></h2>
+<p>In our multi-agent system we have composer agents which have different musical backgrounds. Some of them get their inspiration in known themes from Mozart, some
+others in Schubert and some in Bach.
+Each one of them generates a set of themes and they compare them with each other, while also asking an opinion to auditorium agents who do not generate any kind
+of music.
+Over time, the composer agents modify their theme generation function based on what was deemed good-sounding by the whole society.
+At each iteration, the most contrasting theme is fed into a song creation algorithm that is in the environment, which will transform the theme in many ways to produce
+a monochordic song. The composer agents again evaluate the whole songs.</p>
 </div>
 <div class="section" id="installing-and-running-the-program">
 <h2>Installing and running the program<a class="headerlink" href="#installing-and-running-the-program" title="Permalink to this headline">¶</a></h2>
@@ -119,7 +126,8 @@ In order to download the program and run its demonstration, use the following co
 <p>Created by the latest version:</p>
 <div class="line-block">
 <div class="line">Created by old versions:</div>
-<div class="line"><a class="reference download internal" href="_downloads/duke.midi" download=""><code class="xref download docutils literal"><span class="pre">duke.midi</span></code></a></div>
+<div class="line"><a class="reference download internal" href="_downloads/duke.mid" download=""><code class="xref download docutils literal"><span class="pre">duke.mid</span></code></a></div>
+<div class="line"><code class="xref download docutils literal"><span class="pre">preliminary</span></code></div>
 </div>
 </div>
 <div class="section" id="terminology">
@@ -130,6 +138,9 @@ In order to download the program and run its demonstration, use the following co
 <li><strong>Pitch</strong> Pitch is measured in Hz and defines how high or low it is perceived.</li>
 <li><strong>Theme</strong> The material, usually a recognizable melody, upon which part or all of a composition is based. A theme can be seen as the combination and transformation of one or several motifs. [1]</li>
 <li><strong>Motif</strong> A short succession of notes that is the smallest analyzable element or phrase within a theme. [2]</li>
+<li><strong>Inversion</strong> the inverted form of a motif or theme, in which every ascending movement in the motif is transformed into a equally great descending movement and vice-versa. Check [3]</li>
+<li><strong>Retrograde</strong> the retrograde form of a motif or theme, in which the last note of the motif/theme becomes the first, the second last becomes the second, etc. Check [4]</li>
+<li><strong>Transposition</strong> refers to the process of moving a collection of notes up or down in pitch by a constant interval [5]</li>
 </ul>
 </div>
 <div class="section" id="references">
@@ -137,6 +148,9 @@ In order to download the program and run its demonstration, use the following co
 <ul class="simple">
 <li>[1] <a class="reference external" href="https://en.wikipedia.org/wiki/Subject_(music">https://en.wikipedia.org/wiki/Subject_(music</a>) Retreived 1 Dec 2016, 14:53</li>
 <li>[2] <a class="reference external" href="https://en.wikipedia.org/wiki/Motif_(music">https://en.wikipedia.org/wiki/Motif_(music</a>) Retreived 1 Dec 2016, 14:54</li>
+<li>[3] <a class="reference external" href="https://en.wikipedia.org/wiki/Inversion_(music">https://en.wikipedia.org/wiki/Inversion_(music</a>) Retrieved 13 Dec 2016, 16:57</li>
+<li>[4] <a class="reference external" href="https://en.wikipedia.org/wiki/Retrograde_(music">https://en.wikipedia.org/wiki/Retrograde_(music</a>) Retrieved 13 Dec 2016, 16:59</li>
+<li>[5] <a class="reference external" href="https://en.wikipedia.org/wiki/Transposition_(music">https://en.wikipedia.org/wiki/Transposition_(music</a>) Retrieved 13 Dec 2016, 16:59</li>
 </ul>
 </div>
 </div>
@@ -151,7 +165,7 @@ In order to download the program and run its demonstration, use the following co
   <ul>
 <li><a class="reference internal" href="#">Welcome to REOF-MAS: CCMAS 2016 Project&#8217;s documentation!</a><ul>
 <li><a class="reference internal" href="#project-objective">Project objective</a></li>
-<li><a class="reference internal" href="#short-summary">Short summary</a></li>
+<li><a class="reference internal" href="#summary">Summary</a></li>
 <li><a class="reference internal" href="#installing-and-running-the-program">Installing and running the program</a></li>
 <li><a class="reference internal" href="#agent-overview">Agent overview</a></li>
 <li><a class="reference internal" href="#inspiring-sets">Inspiring sets</a></li>

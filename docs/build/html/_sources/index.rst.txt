@@ -12,14 +12,19 @@ Welcome to REOF-MAS: CCMAS 2016 Project's documentation!
 Project objective
 =================
 
-Our multi-agent system attempts to generate creative monophonic songs with structure resembling that of compositions devised by human composers.
+Our multi-agent system attempts to first generate musical themes and the best ones are used to
+generate monophonic songs with structure resembling that of compositions devised by human composers.
 
+Summary
+=======
 
-Short summary
-=============
-
-Each agent has its own Markov chain of notes, which has been initially created from real songs. On each iteration step every agent generates a short theme using their Markov chain. The agents evaluate all the created themes and the best one is chosen to be the base of a song. TODO: Filipe can surely explain how the song is created here.
-
+In our multi-agent system we have composer agents which have different musical backgrounds. Some of them get their inspiration in known themes from Mozart, some
+others in Schubert and some in Bach.
+Each one of them generates a set of themes and they compare them with each other, while also asking an opinion to auditorium agents who do not generate any kind
+of music.
+Over time, the composer agents modify their theme generation function based on what was deemed good-sounding by the whole society.
+At each iteration, the most contrasting theme is fed into a song creation algorithm that is in the environment, which will transform the theme in many ways to produce
+a monochordic song. The composer agents again evaluate the whole songs.
 
 Installing and running the program
 ==================================
@@ -107,7 +112,8 @@ The songs here have been created by our system.
 Created by the latest version:
 
 | Created by old versions:
-| :download:`duke.midi <downloadables/duke.midi>`
+| :download:`duke.mid <downloadables/duke.mid>`
+| :download:`preliminary <downloadables/preliminary.midi>`
 
 
 Terminology
@@ -123,12 +129,20 @@ Terminology
 
 - **Motif** A short succession of notes that is the smallest analyzable element or phrase within a theme. [2]
 
+- **Inversion** the inverted form of a motif or theme, in which every ascending movement in the motif is transformed into a equally great descending movement and vice-versa. Check [3]
+
+- **Retrograde** the retrograde form of a motif or theme, in which the last note of the motif/theme becomes the first, the second last becomes the second, etc. Check [4]
+
+- **Transposition** refers to the process of moving a collection of notes up or down in pitch by a constant interval [5]
 
 References
 ==========
 
 - [1] https://en.wikipedia.org/wiki/Subject_(music) Retreived 1 Dec 2016, 14:53
 - [2] https://en.wikipedia.org/wiki/Motif_(music) Retreived 1 Dec 2016, 14:54
+- [3] https://en.wikipedia.org/wiki/Inversion_(music) Retrieved 13 Dec 2016, 16:57
+- [4] https://en.wikipedia.org/wiki/Retrograde_(music) Retrieved 13 Dec 2016, 16:59
+- [5] https://en.wikipedia.org/wiki/Transposition_(music) Retrieved 13 Dec 2016, 16:59
 
 
 
