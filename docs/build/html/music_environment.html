@@ -48,15 +48,28 @@
 <dt id="music_environment.MusicEnvironment">
 <em class="property">class </em><code class="descclassname">music_environment.</code><code class="descname">MusicEnvironment</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="headerlink" href="#music_environment.MusicEnvironment" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">creamas.core.environment.Environment</span></code></p>
+<p>Provides an environment for the agents.</p>
 <dl class="method">
 <dt id="music_environment.MusicEnvironment.vote">
 <code class="descname">vote</code><span class="sig-paren">(</span><em>age</em><span class="sig-paren">)</span><a class="headerlink" href="#music_environment.MusicEnvironment.vote" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Agents evaluate candidate artifacts and the best one is chosen and added to domain.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>age: simulation step</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="music_environment.MusicEnvironment.write_midi">
 <code class="descname">write_midi</code><span class="sig-paren">(</span><em>sequence</em>, <em>filename</em>, <em>age=-1</em><span class="sig-paren">)</span><a class="headerlink" href="#music_environment.MusicEnvironment.write_midi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Writes sequence into a midi file.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>sequence: music21 stream that contains a song
+filename: name of the midi file that will be written
+age: determines which artifacts are written. For example if age = 5, every 5th iteration&#8217;s winner is written. If age = -1, every iteration&#8217;s winner is written.</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 

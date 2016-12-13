@@ -48,16 +48,32 @@
 <dt id="composer.ComposerAgent">
 <em class="property">class </em><code class="descclassname">composer.</code><code class="descname">ComposerAgent</code><span class="sig-paren">(</span><em>env</em>, <em>transition_counts</em>, <em>audience_addr</em>, <em>order=1</em>, <em>log_folder='logs'</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">creamas.core.agent.CreativeAgent</span></code></p>
-<p>Agent generates new melodies based on a markov chain.</p>
+<dl class="docutils">
+<dt>Agent generates new melodies based on a markov chain.</dt>
+<dd>Args:
+env: subclass of <code class="xref py py-class docutils literal"><span class="pre">Environment</span></code>
+transition_counts: transition counts of a markov chain
+audience_addr: address of the audience agent
+order: the order of the markov chain
+log_folder: folder for logs</dd>
+</dl>
 <dl class="method">
 <dt id="composer.ComposerAgent.act">
 <code class="descname">act</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.act" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Agent memorizes and learns a random artifact from domain. Then agent invents a new artifact, which is then memorized and added to candidates for voting.</p>
+</dd></dl>
 
 <dl class="method">
 <dt id="composer.ComposerAgent.evaluate">
 <code class="descname">evaluate</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.evaluate" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Evaluates an artifact based on value, novelty and surprise.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>artifact: artifact to be evaluated</dd>
+<dt>Returns:</dt>
+<dd>evaluation and framing</dd>
+</dl>
+</dd></dl>
 
 <dl class="method">
 <dt id="composer.ComposerAgent.generate">
@@ -87,8 +103,7 @@ evaluation.</dd>
 <dl class="method">
 <dt id="composer.ComposerAgent.learn">
 <code class="descname">learn</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.learn" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds the given artifact to state transition counts if not exists, increments
-its value otherwise. Then, recalculates the state transition probabilities again</p>
+<dd><p>Adds transitions in artifact to state transition counts and updates state transition probabilities.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>artifact: Artifact to be learnt</dd>
@@ -110,20 +125,19 @@ its value otherwise. Then, recalculates the state transition probabilities again
 <dl class="method">
 <dt id="composer.ComposerAgent.surprise">
 <code class="descname">surprise</code><span class="sig-paren">(</span><em>artifact</em><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.surprise" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the surprisigness of an artifact based on the pseudolikelihood of it being created using the agent&#8217;s markov chain.</p>
+<dd><p>Calculates the surprisingness of an artifact based on the pseudo-likelihood of it being created using the agent&#8217;s Markov chain.</p>
 <dl class="docutils">
 <dt>Args:</dt>
 <dd>artifact: artifact to be evaluated</dd>
 <dt>Returns:</dt>
-<dd>Surprisigness of an artifact</dd>
+<dd>Surprisingness of an artifact</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="composer.ComposerAgent.update_stp">
 <code class="descname">update_stp</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#composer.ComposerAgent.update_stp" title="Permalink to this definition">¶</a></dt>
-<dd><p>Converts state transition counts to probabilities
-:return:</p>
+<dd><p>Converts state transition counts to probabilities</p>
 </dd></dl>
 
 <dl class="method">

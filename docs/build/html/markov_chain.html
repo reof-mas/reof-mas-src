@@ -45,6 +45,17 @@
   <div class="section" id="module-markov_chain">
 <span id="markov-chain-module"></span><h1>markov_chain module<a class="headerlink" href="#module-markov_chain" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
+<dt id="markov_chain.add_transitions">
+<code class="descclassname">markov_chain.</code><code class="descname">add_transitions</code><span class="sig-paren">(</span><em>states</em>, <em>transitions</em><span class="sig-paren">)</span><a class="headerlink" href="#markov_chain.add_transitions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds transitions in states to transitions.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>states: states extracted from a sequence of notes
+transitions: adds state transitions from states to transitions</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="markov_chain.get_markov_chain">
 <code class="descclassname">markov_chain.</code><code class="descname">get_markov_chain</code><span class="sig-paren">(</span><em>directory_path</em>, <em>order=1</em><span class="sig-paren">)</span><a class="headerlink" href="#markov_chain.get_markov_chain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Creates markov chain from midi file.</p>
@@ -78,7 +89,7 @@ order:Order of the markov chain</dd>
 <dt>Args:</dt>
 <dd>succ_counts: dictionary where key is successor state and value is count</dd>
 <dt>Returns:</dt>
-<dd>successor probabilites for a state</dd>
+<dd>successor probabilities for a state</dd>
 </dl>
 </dd></dl>
 

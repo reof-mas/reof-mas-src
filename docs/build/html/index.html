@@ -48,11 +48,15 @@
 </div>
 <div class="section" id="project-objective">
 <h2>Project objective<a class="headerlink" href="#project-objective" title="Permalink to this headline">¶</a></h2>
-<p>Our multi-agent system attempts to generate monophonic songs with structure resembling that of compositions devised by human composers.</p>
+<p>Our multi-agent system attempts to generate creative monophonic songs with structure resembling that of compositions devised by human composers.</p>
 </div>
-<div class="section" id="running-the-demonstration">
-<h2>Running the demonstration<a class="headerlink" href="#running-the-demonstration" title="Permalink to this headline">¶</a></h2>
-<p>Installing the environment requires python 3.5 and virtualenv.
+<div class="section" id="short-summary">
+<h2>Short summary<a class="headerlink" href="#short-summary" title="Permalink to this headline">¶</a></h2>
+<p>Each agent has its own Markov chain of notes, which has been initially created from real songs. On each iteration step every agent generates a short theme using their Markov chain. The agents evaluate all the created themes and the best one is chosen to be the base of a song. TODO: Filipe can surely explain how the song is created here.</p>
+</div>
+<div class="section" id="installing-and-running-the-program">
+<h2>Installing and running the program<a class="headerlink" href="#installing-and-running-the-program" title="Permalink to this headline">¶</a></h2>
+<p>Installing and using the program requires python 3.5, virtualenv and lilypond (<a class="reference external" href="http://lilypond.org/">http://lilypond.org/</a>).
 In order to download the program and run its demonstration, use the following commands:</p>
 <div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">git</span> <span class="n">clone</span> <span class="n">git</span><span class="nd">@github</span><span class="o">.</span><span class="n">com</span><span class="p">:</span><span class="n">reof</span><span class="o">-</span><span class="n">mas</span><span class="o">/</span><span class="n">reof</span><span class="o">-</span><span class="n">mas</span><span class="o">-</span><span class="n">src</span><span class="o">.</span><span class="n">git</span>
 <span class="n">cd</span> <span class="n">reof</span><span class="o">-</span><span class="n">mas</span><span class="o">-</span><span class="n">src</span><span class="o">/</span>
@@ -63,23 +67,43 @@ In order to download the program and run its demonstration, use the following co
 <span class="n">python</span> <span class="n">melodic_chains</span><span class="o">.</span><span class="n">py</span>
 </pre></div>
 </div>
-<p>After this there should be generated artifacts in py_env/src/outputs. Vote winner themes are named artefact_[id].mid and created songs are called song_[id].mid.</p>
+<p>After this there should be generated artefacts in py_env/src/outputs. Vote winner themes are named artefact_[id].mid and created songs are called song_[id].mid.</p>
 </div>
-<div class="section" id="generating-artifacts">
-<h2>Generating artifacts<a class="headerlink" href="#generating-artifacts" title="Permalink to this headline">¶</a></h2>
-<p>We treat all possible notes as an alphabet, which allows us to use Markov chains for generating sequences of notes, a composition. Currently, we opted to using a second order Markov chain. The problem of the first order is that the artifacts may sound too random. On the other hand, if we were to choose an order at least three, our system will start plagiarize too much the compositions in the corpus used for constructing the Markov chains. (TODO: more content)</p>
+<div class="section" id="agent-overview">
+<h2>Agent overview<a class="headerlink" href="#agent-overview" title="Permalink to this headline">¶</a></h2>
+<p>We have two types of agents: composer agents and an audience agent.</p>
+<p>Composer agents are experts in music. They create short themes and evaluate each other&#8217;s creations. Composer agents also have a memory and they remember a certain amount of their own creations and artefacts from the domain.</p>
+<p>The audience agent emulates a normal person who doesn&#8217;t have musical expertise. It provides an uneducated evaluation for the composers&#8217; creations.</p>
+</div>
+<div class="section" id="inspiring-sets">
+<h2>Inspiring sets<a class="headerlink" href="#inspiring-sets" title="Permalink to this headline">¶</a></h2>
+<p>Every agent has a Markov chain of note transitions. The Markov chain is initially created from a set of real songs, for example the works of Bach. During the execution of the program, agents add melodies created by themselves and other agents to their Markov chain. Currently, we opted to using a second order Markov chain. The problem of the first order is that the artefacts may sound too random. On the other hand, if we were to choose an order at least three, our system will start plagiarize too much the compositions in the corpus used for constructing the Markov chains.</p>
+</div>
+<div class="section" id="generating-artefacts">
+<h2>Generating artefacts<a class="headerlink" href="#generating-artefacts" title="Permalink to this headline">¶</a></h2>
+<p>A composer agent creates a short theme using its Markov chain. The starting note is selected randomly and from there the next note is selected using the Markov chain transition probabilities. The generated themes are filtered using the composer agent&#8217;s own evaluation and the audience agent&#8217;s opinion.</p>
+<p>TODO: Song creation</p>
+</div>
+<div class="section" id="artefact-evaluation">
+<h2>Artefact evaluation<a class="headerlink" href="#artefact-evaluation" title="Permalink to this headline">¶</a></h2>
+<p>Composer agents evaluate themes using three measures: value, novelty and surprise.</p>
+<p>Value is calculated using Zipf&#8217;s law, which states that in natural text, the second most frequent word appears 1/2 times as often as the most frequent word, the third most frequent word appears 1/3 times as often as the most frequent one, and so on. Whenever evaluating a theme, we measure how well it obeys the law, and return a value denoting that value.</p>
+<p>In order to determine the novelty of a theme <code class="docutils literal"><span class="pre">A</span></code>, we compare the Levenshtein distance between <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code> for every artefact <code class="docutils literal"><span class="pre">B</span></code> in the agents memory, and choose the minimum distance over all <code class="docutils literal"><span class="pre">B</span></code> as the novelty. Instead of using the alphabet notes, a melody is transformed into an array containing the steps between consecutive notes. We do this because what the notes are doesn&#8217;t really matter to the human ear. What matters is the change in pitch between the notes.</p>
+<p>For surprise evaluation the agents use their Markov chain probabilities. The more unlikely the transitions in the melody are, the more surprising it is.</p>
+<p>Audience agent is supposed to give a layman&#8217;s evaluation to themes in contrast to the expert opinion of a composer. Currently it only uses Zipf&#8217;s law, because we didn&#8217;t have enough time to implement more evaluation methods for it.</p>
+<p>TODO: Song evaluation</p>
 </div>
 <div class="section" id="source-code-layout">
 <h2>Source code layout<a class="headerlink" href="#source-code-layout" title="Permalink to this headline">¶</a></h2>
 <p>(All the files are in the directory <code class="docutils literal"><span class="pre">py_env/src</span></code> of our repository.)</p>
 <ul class="simple">
-<li><code class="docutils literal"><span class="pre">audience_agent.py</span></code> - gives a layman&#8217;s evaluation for artifacts.</li>
-<li><code class="docutils literal"><span class="pre">composer.py</span></code> - implements the agent responsible for generating artifacts, computing the value, novelty and surprise of each artifact, and finally voting for artifacts in the environment.</li>
-<li><code class="docutils literal"><span class="pre">list_memory.py</span></code> - a FIFO (first in, first out) queue for holding at most <code class="docutils literal"><span class="pre">c</span></code> artifacts, where <code class="docutils literal"><span class="pre">c</span></code> is the maximum allowed capacity of the memory queue.</li>
+<li><code class="docutils literal"><span class="pre">audience_agent.py</span></code> - gives a layman&#8217;s evaluation for artefacts.</li>
+<li><code class="docutils literal"><span class="pre">composer.py</span></code> - implements the agent responsible for generating artefacts, computing the value, novelty and surprise of each artefact, and finally voting for artefacts in the environment.</li>
+<li><code class="docutils literal"><span class="pre">list_memory.py</span></code> - a FIFO (first in, first out) queue for holding at most <code class="docutils literal"><span class="pre">c</span></code> artefacts, where <code class="docutils literal"><span class="pre">c</span></code> is the maximum allowed capacity of the memory queue.</li>
 <li><code class="docutils literal"><span class="pre">markov_chain.py</span></code> - implements the Markov chain. The algorithm returns absolute transitions counts, yet the function <code class="docutils literal"><span class="pre">get_transition_probs_for_state</span></code> can convert those to transition probabilities.</li>
 <li><code class="docutils literal"><span class="pre">melodic_chains.py</span></code> - contains the entry point to our CC software.</li>
 <li><code class="docutils literal"><span class="pre">music_environment.py</span></code> - inherits the environment from Creamas providing the voting function required by Creamas.</li>
-<li><code class="docutils literal"><span class="pre">serializers.py</span></code> - contains artifact serialization.</li>
+<li><code class="docutils literal"><span class="pre">serializers.py</span></code> - contains artefact serialization.</li>
 <li><code class="docutils literal"><span class="pre">utility.py</span></code> - contains miscellaneous utility functions.</li>
 </ul>
 </div>
@@ -89,17 +113,14 @@ In order to download the program and run its demonstration, use the following co
 <li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
 </ul>
 </div>
-<div class="section" id="artefact-value-evaluation">
-<h2>Artefact value evaluation<a class="headerlink" href="#artefact-value-evaluation" title="Permalink to this headline">¶</a></h2>
-<p>The Zipf&#8217;s law states that in natural text, the second most frequent word appears 1/2 times as often as the most frequent word, the third most frequent word appears 1/3 times as often as the most frequent one, and so on. Whenever evaluating an artefact, we measure how well it obeys the law, and return a value denoting that value.</p>
+<div class="section" id="examples">
+<h2>Examples<a class="headerlink" href="#examples" title="Permalink to this headline">¶</a></h2>
+<p>The songs here have been created by our system.</p>
+<p>Created by the latest version:</p>
+<div class="line-block">
+<div class="line">Created by old versions:</div>
+<div class="line"><a class="reference download internal" href="_downloads/duke.midi" download=""><code class="xref download docutils literal"><span class="pre">duke.midi</span></code></a></div>
 </div>
-<div class="section" id="artefact-novelty-evaluation">
-<h2>Artefact novelty evaluation<a class="headerlink" href="#artefact-novelty-evaluation" title="Permalink to this headline">¶</a></h2>
-<p>In order to determine the novelty of an artefact <code class="docutils literal"><span class="pre">A</span></code>, we compare the Levenshtein distance between <code class="docutils literal"><span class="pre">A</span></code> and <code class="docutils literal"><span class="pre">B</span></code> for every artefact <code class="docutils literal"><span class="pre">B</span></code> in the agents memory, and choose the minimum distance over all <code class="docutils literal"><span class="pre">B</span></code> as the novelty.</p>
-</div>
-<div class="section" id="agent-overview">
-<h2>Agent overview<a class="headerlink" href="#agent-overview" title="Permalink to this headline">¶</a></h2>
-<p>Add text</p>
 </div>
 <div class="section" id="terminology">
 <h2>Terminology<a class="headerlink" href="#terminology" title="Permalink to this headline">¶</a></h2>
@@ -130,13 +151,15 @@ In order to download the program and run its demonstration, use the following co
   <ul>
 <li><a class="reference internal" href="#">Welcome to REOF-MAS: CCMAS 2016 Project&#8217;s documentation!</a><ul>
 <li><a class="reference internal" href="#project-objective">Project objective</a></li>
-<li><a class="reference internal" href="#running-the-demonstration">Running the demonstration</a></li>
-<li><a class="reference internal" href="#generating-artifacts">Generating artifacts</a></li>
+<li><a class="reference internal" href="#short-summary">Short summary</a></li>
+<li><a class="reference internal" href="#installing-and-running-the-program">Installing and running the program</a></li>
+<li><a class="reference internal" href="#agent-overview">Agent overview</a></li>
+<li><a class="reference internal" href="#inspiring-sets">Inspiring sets</a></li>
+<li><a class="reference internal" href="#generating-artefacts">Generating artefacts</a></li>
+<li><a class="reference internal" href="#artefact-evaluation">Artefact evaluation</a></li>
 <li><a class="reference internal" href="#source-code-layout">Source code layout</a></li>
 <li><a class="reference internal" href="#source-code-documentation">Source code documentation</a></li>
-<li><a class="reference internal" href="#artefact-value-evaluation">Artefact value evaluation</a></li>
-<li><a class="reference internal" href="#artefact-novelty-evaluation">Artefact novelty evaluation</a></li>
-<li><a class="reference internal" href="#agent-overview">Agent overview</a></li>
+<li><a class="reference internal" href="#examples">Examples</a></li>
 <li><a class="reference internal" href="#terminology">Terminology</a></li>
 <li><a class="reference internal" href="#references">References</a></li>
 </ul>

@@ -99,6 +99,17 @@ Source code documentation
 * :ref:`modindex`
 
 
+Examples
+========
+
+The songs here have been created by our system.
+
+Created by the latest version:
+
+| Created by old versions:
+| :download:`duke.midi <downloadables/duke.midi>`
+
+
 Terminology
 ===========
 
