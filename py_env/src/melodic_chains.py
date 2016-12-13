@@ -54,7 +54,7 @@ def main():
     selected_order = 2
     # Inspiring set paths
     path1 = "../../melodies/classical/bach"
-    path2 = "../../melodies/classical/mozart"
+    path2 = "../../melodies/classical/schubert"
     #directory_path = "../../melodies/classical/schubert"
     #transition_counts = markov_chain.get_markov_chain(directory_path, order=selected_order)
 
@@ -99,9 +99,8 @@ def create_song(domain_artifacts):
             lowest_complexity = similarity
             least_complex = artifact
 
-    motif1 = sequence_to_part(least_complex.obj)
+    part1 = sequence_to_part(least_complex.obj)
     motif2 = sequence_to_part(most_complex.obj)
-    part1 = stream.Part()
     part2 = stream.Part()
 
     # Change octave of the simpler part
@@ -112,29 +111,29 @@ def create_song(domain_artifacts):
     for i in range(5):
             number1 = random.randint(0, 3)
             if number1 is 0:
-                seq1 = transpose(motif1, random.randint(0, 11))
+                #seq1 = transpose(motif1, random.randint(0, 11))
                 seq2 = transpose(motif2, random.randint(0, 11))
             elif number1 is 1:
-                seq1 = inverse(motif1)
+                #seq1 = inverse(motif1)
                 seq2 = inverse(motif2)
             elif number1 is 2:
-                seq1 = retrograde(motif1)
+                #seq1 = retrograde(motif1)
                 seq2 = retrograde(motif2)
             elif number1 is 3:
-                seq1 = inverse_and_retrograde(motif1)
+                #seq1 = inverse_and_retrograde(motif1)
                 seq2 = inverse_and_retrograde(motif2)
 
-            for note in seq1:
-                part1.append(copy.copy(note))
+            #for note in seq1:
+                #part1.append(copy.copy(note))
 
             for note in seq2:
                 part2.append(copy.copy(note))
 
     # Make part2 as long as part1
-    part2_len = len(part2)
-    while part2.duration.quarterLength < part1.duration.quarterLength:
-        for i in range(part2_len):
-            part2.append(copy.copy(part2[i]))
+    # part2_len = len(part2)
+    # while part2.duration.quarterLength < part1.duration.quarterLength:
+    #     for i in range(part2_len):
+    #         part2.append(copy.copy(part2[i]))
 
     # Make part1 as long as part2
     part1_len = len(part1)
