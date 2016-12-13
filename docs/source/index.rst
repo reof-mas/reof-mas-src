@@ -112,7 +112,8 @@ The songs here have been created by our system.
 Created by the latest version:
 
 | Created by old versions:
-| :download:`duke.midi <downloadables/duke.midi>`
+| :download:`duke.mid <downloadables/duke.mid>`
+| :download:`preliminary <downloadables/preliminary.midi>`
 
 
 Terminology
