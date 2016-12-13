@@ -64,7 +64,7 @@ In order to download the program and run its demonstration, use the following co
         cd py_env/src
         python melodic_chains.py
 
-After this there should be generated artefacts in py_env/src/outputs. Vote winner themes are named artefact_[id].mid and created songs are called song_[id].mid.
+After this there should be generated artefacts in py_env/src/outputs. Vote winner themes are named artefact_[id].mid and the created song is called the_song.mid.
 
 
 Agent overview
@@ -88,8 +88,6 @@ Generating artefacts
 
 A composer agent creates a short theme using its Markov chain. The starting note is selected randomly and from there the next note is selected using the Markov chain transition probabilities. The generated themes are filtered using the composer agent's own evaluation and the audience agent's opinion.
 
-TODO: Song creation
-
 
 Artefact evaluation
 =========================
@@ -103,8 +101,6 @@ In order to determine the novelty of a theme ``A``, we compare the Levenshtein d
 For surprise evaluation the agents use their Markov chain probabilities. The more unlikely the transitions in the melody are, the more surprising it is.
 
 Audience agent is supposed to give a layman's evaluation to themes in contrast to the expert opinion of a composer. Currently it only uses Zipf's law, because we didn't have enough time to implement more evaluation methods for it.
-
-TODO: Song evaluation
 
 
 Source code layout
@@ -131,14 +127,7 @@ Source code documentation
 Examples
 ========
 
-The songs here have been created by our system.
-
-|Created by the latest version:
-| :download:`horror.mid <downloadables/horror.mid>`
-
-| Created by old versions:
-| :download:`duke.mid <downloadables/duke.mid>`
-| :download:`preliminary.mid <downloadables/preliminary.midi>`
+You can download a zip containing some songs created by our system here: :download:`examples.zip <downloadables/examples.zip>`
 
 
 References

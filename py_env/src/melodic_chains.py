@@ -53,8 +53,8 @@ def main():
     # Order of the markov chains
     selected_order = 2
     # Inspiring set paths
-    path1 = "../../melodies/classical/bach"
-    path2 = "../../melodies/classical/schubert"
+    path1 = "../../melodies/classical/schubert"
+    path2 = "../../melodies/classical/bach"
     #directory_path = "../../melodies/classical/schubert"
     #transition_counts = markov_chain.get_markov_chain(directory_path, order=selected_order)
 
