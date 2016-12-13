@@ -88,7 +88,6 @@ Generating artefacts
 
 A composer agent creates a short theme using its Markov chain. The starting note is selected randomly and from there the next note is selected using the Markov chain transition probabilities. The generated themes are filtered using the composer agent's own evaluation and the audience agent's opinion.
 
-
 Artefact evaluation
 =========================
 
@@ -102,6 +101,13 @@ For surprise evaluation the agents use their Markov chain probabilities. The mor
 
 Audience agent is supposed to give a layman's evaluation to themes in contrast to the expert opinion of a composer. Currently it only uses Zipf's law, because we didn't have enough time to implement more evaluation methods for it.
 
+Generating songs
+================
+
+Generating good songs is not trivial. In some aspects, a good song can be regarded as a good story. In it, the main character is presented to us at the beginning. During the course of the story, the main character gets through some obstacles and its world is transformed. At the end, the character is presented back to us but he is a little bit different than before.
+
+We tried to apply the same principle. The main theme was selected as the most complex theme (using self_similarity() function) from among the best artifacts stored in the environment. At first, this theme is played. Then, it suffers some transformations that are commonly found in songs and are deemed successful throughout music history: inversion, retrograde, inverted retrograde and transposition. To finalize, the theme is heard again but in its inverted form.
+Accompanying this voice is a continuous reproduction of the least complex theme in the environment's best themes.
 
 Source code layout
 ==================
