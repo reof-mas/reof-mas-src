@@ -133,12 +133,12 @@ Examples
 
 The songs here have been created by our system.
 
-Created by the latest version:
+|Created by the latest version:
+| :download:`horror.mid <downloadables/horror.mid>`
 
 | Created by old versions:
 | :download:`duke.mid <downloadables/duke.mid>`
-| :download:`preliminary <downloadables/preliminary.midi>`
-| :download:`horror.midi <downloadables/horror.midi>`
+| :download:`preliminary.mid <downloadables/preliminary.midi>`
 
 
 References
