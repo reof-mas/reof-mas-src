@@ -289,8 +289,6 @@ def zipfs_law(artifact):
     return pseudo_fit
 
 def transpose(strm, step):
-    #TODO: this is still transposing to another key, it would be great to transpose but
-    #to keep things in C major.
     """
     Transposes the stream into the key given by step.
     Args:
