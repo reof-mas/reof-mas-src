@@ -46,9 +46,13 @@ def main():
     delete_outputs('outputs')
     instrument_list = get_instruments()
 
+    # Number of iterations in the simulation
     iteration = 5
+    # Number of agents to create
     agent_number = 6
+    # Order of the markov chains
     selected_order = 2
+    # Inspiring set paths
     path1 = "../../melodies/classical/bach"
     path2 = "../../melodies/classical/mozart"
     #directory_path = "../../melodies/classical/schubert"
@@ -65,11 +69,10 @@ def main():
     sim = Simulation(env, log_folder='logs', callback=env.vote)
     sim.async_steps(iteration)
     sim.end()
+
     # Test this
     MusicEnvironment.shutdown(env)
 
-    # Concatenate the melodies
-    #concat_melodies(env.artifacts, instrument_list)
     #create_song2(env.artifacts)
     create_song(env.artifacts)
 
@@ -137,7 +140,7 @@ def create_song(domain_artifacts):
     change_instrument(part1, random.randint(0, 127))
     change_instrument(part2, random.randint(0, 127))
     song = stream.Stream([part1, part2])
-    song.write('midi', 'outputs/the_song.midi')
+    song.write('midi', 'outputs/the_song.mid')
 
 
 def create_song2(domain_artifacts):
@@ -187,7 +190,7 @@ def create_song2(domain_artifacts):
     # Write the song to file
     change_instrument(final_stream, random.randint(0, 127))
     song = stream.Stream(final_stream)
-    song.write('midi', 'outputs/the_song.midi')
+    song.write('midi', 'outputs/the_song.mid')
 
 def create_songs(domain_artifacts):
     """
@@ -216,7 +219,7 @@ def create_songs(domain_artifacts):
         # Write the song to file
         change_instrument(final_stream, random.randint(0, 127))
         song = stream.Stream(final_stream)
-        song.write('midi', 'outputs/the_song' + str(j) + '.midi')
+        song.write('midi', 'outputs/the_song' + str(j) + '.mid')
         j += 1
 
 if __name__ == "__main__":

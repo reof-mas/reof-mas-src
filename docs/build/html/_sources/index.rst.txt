@@ -15,6 +15,7 @@ Project objective
 Our multi-agent system attempts to first generate musical themes and the best ones are used to
 generate monophonic songs with structure resembling that of compositions devised by human composers.
 
+
 Summary
 =======
 
@@ -26,8 +27,31 @@ Over time, the composer agents modify their theme generation function based on w
 At each iteration, the most contrasting theme is fed into a song creation algorithm that is in the environment, which will transform the theme in many ways to produce
 a monochordic song. The composer agents again evaluate the whole songs.
 
+
+Terminology
+===========
+
+- **Note** A note is a basic building block of music. It has at least two attributes: a pitch (a frequency in Hz) and duration (see below).
+
+- **Duration** Duration of a note is the time interval it takes to play the note relatively to the actual rythm. For instance, a note may take an entire bar, half of it, a quarter, and so on.
+
+- **Pitch** Pitch is measured in Hz and defines how high or low it is perceived.
+
+- **Theme** The material, usually a recognizable melody, upon which part or all of a composition is based. A theme can be seen as the combination and transformation of one or several motifs. [1]
+
+- **Motif** A short succession of notes that is the smallest analyzable element or phrase within a theme. [2]
+
+- **Inversion** the inverted form of a motif or theme, in which every ascending movement in the motif is transformed into a equally great descending movement and vice-versa. Check [3]
+
+- **Retrograde** the retrograde form of a motif or theme, in which the last note of the motif/theme becomes the first, the second last becomes the second, etc. Check [4]
+
+- **Transposition** refers to the process of moving a collection of notes up or down in pitch by a constant interval [5]
+
+
 Installing and running the program
 ==================================
+
+Warning: This guide is for linux. Other operating systems may require manual installation of the packages.
 
 Installing and using the program requires python 3.5, virtualenv and lilypond (http://lilypond.org/).
 In order to download the program and run its demonstration, use the following commands:
@@ -115,25 +139,6 @@ Created by the latest version:
 | :download:`duke.mid <downloadables/duke.mid>`
 | :download:`preliminary <downloadables/preliminary.midi>`
 
-
-Terminology
-===========
-
-- **Note** A note is a basic building block of music. It has at least two attributes: a pitch (a frequency in Hz) and duration (see below).
-
-- **Duration** Duration of a note is the time interval it takes to play the note relatively to the actual rythm. For instance, a note may take an entire bar, half of it, a quarter, and so on.
-
-- **Pitch** Pitch is measured in Hz and defines how high or low it is perceived.
-
-- **Theme** The material, usually a recognizable melody, upon which part or all of a composition is based. A theme can be seen as the combination and transformation of one or several motifs. [1]
-
-- **Motif** A short succession of notes that is the smallest analyzable element or phrase within a theme. [2]
-
-- **Inversion** the inverted form of a motif or theme, in which every ascending movement in the motif is transformed into a equally great descending movement and vice-versa. Check [3]
-
-- **Retrograde** the retrograde form of a motif or theme, in which the last note of the motif/theme becomes the first, the second last becomes the second, etc. Check [4]
-
-- **Transposition** refers to the process of moving a collection of notes up or down in pitch by a constant interval [5]
 
 References
 ==========
