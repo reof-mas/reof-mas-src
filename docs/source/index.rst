@@ -12,20 +12,20 @@ Welcome to REOF-MAS: CCMAS 2016 Project's documentation!
 Project objective
 =================
 
-Our multi-agent system attempts to first generate musical themes and the best ones are used to
-generate monophonic songs with structure resembling that of compositions devised by human composers.
+Our multi-agent system attempts to first generate musical themes and then the most contrasting ones among the best ones are used to
+generate songs with structure resembling that of compositions devised by human composers.
 
 
 Summary
 =======
 
-In our multi-agent system we have composer agents which have different musical backgrounds. Some of them get their inspiration in known themes from Mozart, some
-others in Schubert and some in Bach.
-Each one of them generates a set of themes and they compare them with each other, while also asking an opinion to auditorium agents who do not generate any kind
+In our multi-agent system we have composer agents which have different musical backgrounds. Some of them get their inspiration in known themes from Mozart or Bach.
+Each one of them generates a set of themes and they compare them with each other, while also asking an opinion to audience agents who do not generate any kind
 of music.
+
 Over time, the composer agents modify their theme generation function based on what was deemed good-sounding by the whole society.
-At each iteration, the most contrasting theme is fed into a song creation algorithm that is in the environment, which will transform the theme in many ways to produce
-a monochordic song. The composer agents again evaluate the whole songs.
+At the end of the simulation, the most and the least complex themes of the best ones at each iteration are fed into a song creation algorithm that is in the environment, which in turn will transform the both themes in many ways to produce
+a single song.
 
 
 Terminology
@@ -138,6 +138,7 @@ Created by the latest version:
 | Created by old versions:
 | :download:`duke.mid <downloadables/duke.mid>`
 | :download:`preliminary <downloadables/preliminary.midi>`
+| :download:`horror.midi <downloadables/horror.midi>`
 
 
 References
