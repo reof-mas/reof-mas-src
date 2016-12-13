@@ -136,6 +136,12 @@ def create_song(domain_artifacts):
         for i in range(part2_len):
             part2.append(copy.copy(part2[i]))
 
+    # Make part1 as long as part2
+    part1_len = len(part1)
+    while part1.duration.quarterLength < part2.duration.quarterLength:
+        for i in range(part1_len):
+            part1.append(copy.copy(part1[i]))
+
     # Write the song to file
     change_instrument(part1, random.randint(0, 127))
     change_instrument(part2, random.randint(0, 127))
