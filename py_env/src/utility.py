@@ -301,6 +301,34 @@ def transpose(strm, step):
     """
     return strm.transpose(step)
 
+def diatonic_transposition(stm, interval, k):
+    """
+    Transposes the stream diatonically respecting the Key of the excerpt.
+    Args:
+        stm: Stream of music21
+        interval: an interval to be transposed, given as an music21 interval
+        object or as a string
+        k: the key in which the string should be.
+    Returns:
+        a diatonically transposed stream of stm.
+
+    """
+    new=stm.transpose(interval)
+    l=[]
+    for ptc in k.alteredPitches:
+        l.append((ptc.name[0], ptc.name[1:]))
+    for i in range(len(new)):
+        n=new[i].name
+        has_accidental=False
+        for m, acc in l:
+            if n is m:
+                new[i].accidental=acc
+                has_accidental=True
+        if has_accidental is False:
+            new[i].accidental=0
+    return new
+
+
 def inverse(strm):
     """
     Inverses the stream. Each step up is converted into a step down and vice-versa.

@@ -227,5 +227,97 @@ def create_songs(domain_artifacts):
         song.write('midi', 'outputs/the_song' + str(j) + '.mid')
         j += 1
 
+
+
+def create_song3(domain_artifacts):
+    """
+    Creates a song from domain artifacts. Creates a two track song with random thematic transformations. Selects the most complex and the least complex theme for different tracks.
+
+    Args:
+        domain_artifacts: list of domain artifacts
+    """
+    # Choose the artifacts with lowest and highest complexities for different tracks in the song
+    highest_complexity = 1
+    lowest_complexity = 0
+    most_complex = domain_artifacts[0]
+    least_complex = domain_artifacts[0]
+
+    for artifact in domain_artifacts:
+        similarity = self_similarity(artifact)
+        if similarity < highest_complexity:
+            highest_complexity = similarity
+            most_complex = artifact
+        if similarity > lowest_complexity:
+            lowest_complexity = similarity
+            least_complex = artifact
+
+    part1 = sequence_to_part(least_complex.obj)
+    motif2 = sequence_to_part(most_complex.obj)
+    part2 = stream.Part()
+    tonality = key.Key("C")
+    base_tonality = tonality
+    current.tonality = tonality
+    modality_changer=0
+    while tonality is not base_tonality & modality_changer<5:
+        while current.tonality == tonality:
+            number1 = random.randint(0, 3)
+
+            if number1 is 0:
+                # seq1 = transpose(motif1, random.randint(0, 11))
+                seq2 = diatonic_transposition(motif2, random.randint(0, 11), current.tonality)
+            elif number1 is 1:
+                # seq1 = inverse(motif1)
+                seq2 = inverse(motif2)
+            elif number1 is 2:
+                # seq1 = retrograde(motif1)
+                seq2 = retrograde(motif2)
+            elif number1 is 3:
+                # seq1 = inverse_and_retrograde(motif1)
+                seq2 = inverse_and_retrograde(motif2)
+
+    # Change octave of the simpler part
+        for note in part1:
+            note.octave = 3
+
+    # Pick random thematic transformations
+    for i in range(5):
+            number1 = random.randint(0, 3)
+            if number1 is 0:
+                #seq1 = transpose(motif1, random.randint(0, 11))
+                seq2 = transpose(motif2, random.randint(0, 11))
+            elif number1 is 1:
+                #seq1 = inverse(motif1)
+                seq2 = inverse(motif2)
+            elif number1 is 2:
+                #seq1 = retrograde(motif1)
+                seq2 = retrograde(motif2)
+            elif number1 is 3:
+                #seq1 = inverse_and_retrograde(motif1)
+                seq2 = inverse_and_retrograde(motif2)
+
+            #for note in seq1:
+                #part1.append(copy.copy(note))
+
+            for note in seq2:
+                part2.append(copy.copy(note))
+
+    # Make part2 as long as part1
+    # part2_len = len(part2)
+    # while part2.duration.quarterLength < part1.duration.quarterLength:
+    #     for i in range(part2_len):
+    #         part2.append(copy.copy(part2[i]))
+
+    # Make part1 as long as part2
+    part1_len = len(part1)
+    while part1.duration.quarterLength < part2.duration.quarterLength:
+        for i in range(part1_len):
+            part1.append(copy.copy(part1[i]))
+
+    # Write the song to file
+    change_instrument(part1, random.randint(0, 127))
+    change_instrument(part2, random.randint(0, 127))
+    song = stream.Stream([part1, part2])
+    song.write('midi', 'outputs/the_song.mid')
+
 if __name__ == "__main__":
     main()

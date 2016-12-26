@@ -10,25 +10,25 @@ def diatonic_transposition(stm, interval, k):
         has_accidental=False
         for m, acc in l:
             if n is m:
-                new[i].accidental.set(acc)
+                new[i].accidental=acc
                 has_accidental=True
         if has_accidental is False:
-            new[i].accidental.set(0)
+            new[i].accidental=0
     return new
 
 l=[]
-l.append(note.Note("C"))
-l.append(note.Note("D"))
-l.append(note.Note("E"))
-l.append(note.Note("F"))
-l.append(note.Note("G"))
-l.append(note.Note("A"))
-l.append(note.Note("B"))
+l.append(note.Note("C4"))
+l.append(note.Note("D4"))
+l.append(note.Note("E4"))
+l.append(note.Note("F4"))
+l.append(note.Note("G4"))
+l.append(note.Note("A4"))
+l.append(note.Note("B4"))
 
 s=stream.Stream()
 s.append(l)
 
-k=key.Key("D")
+k=key.Key("C")
 t=diatonic_transposition(s, "3m", k)
 
 s.show()
