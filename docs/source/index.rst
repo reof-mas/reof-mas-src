@@ -83,13 +83,8 @@ Inspiring sets
 Every agent has a Markov chain of note transitions. The Markov chain is initially created from a set of real songs, for example the works of Bach. During the execution of the program, agents add melodies created by themselves and other agents to their Markov chain. Currently, we opted to using a second order Markov chain. The problem of the first order is that the artefacts may sound too random. On the other hand, if we were to choose an order at least three, our system will start plagiarize too much the compositions in the corpus used for constructing the Markov chains.
 
 
-Generating artefacts
-====================
-
-A composer agent creates a short theme using its Markov chain. The starting note is selected randomly and from there the next note is selected using the Markov chain transition probabilities. The generated themes are filtered using the composer agent's own evaluation and the audience agent's opinion.
-
 Artefact evaluation
-=========================
+===================
 
 Composer agents evaluate themes using three measures: value, novelty and surprise.
 
@@ -100,6 +95,12 @@ In order to determine the novelty of a theme ``A``, we compare the Levenshtein d
 For surprise evaluation the agents use their Markov chain probabilities. The more unlikely the transitions in the melody are, the more surprising it is.
 
 Audience agent is supposed to give a layman's evaluation to themes in contrast to the expert opinion of a composer. Currently it only uses Zipf's law, because we didn't have enough time to implement more evaluation methods for it.
+
+Generating themes
+=================
+
+A composer agent creates a short theme using its Markov chain. The starting note is selected randomly and from there the next note is selected using the Markov chain transition probabilities. The generated themes are filtered using the composer agent's own evaluation and the audience agent's opinion.
+
 
 Generating songs
 ================
@@ -125,7 +126,7 @@ Source code layout
 
 
 Source code documentation
-==================
+=========================
 
 * :ref:`modindex`
 
